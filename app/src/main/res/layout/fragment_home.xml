@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".ui.HomeFragment">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageButton
+            android:id="@+id/premiumButton"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="310dp"
+            android:layout_marginTop="20dp"
+            android:background="@android:color/transparent"
+            android:padding="1dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/premium" />
+
+        <SearchView
+            android:layout_width="280dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Este é o conteúdo do fragmento inicial (Home)"
+            android:layout_gravity="center"
+            android:background="#50C878"/>
+
+    </FrameLayout>
+
+
+</FrameLayout>

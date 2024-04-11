@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".ui.ProfileFragment">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageButton
+            android:id="@+id/settingsbutton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@android:color/transparent"
+            android:padding="1dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/settings"
+            android:layout_marginStart="320dp"
+            android:layout_marginTop="20dp"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/profileImageView"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:src="@drawable/profile"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="145dp"
+                android:scaleType="fitCenter" />
+
+            <TextView
+                android:id="@+id/nomeUserText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/profileImageView"
+                android:layout_marginTop="20dp"
+                android:gravity="center_horizontal"
+                android:text="NOME DO UTILIZADOR"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="300dp"
+                android:layout_height="2dp"
+                android:layout_alignBottom="@+id/nomeUserText"
+                android:layout_marginBottom="-11dp"
+                android:background="#50C878"
+                android:layout_centerHorizontal="true"/>
+
+            <TextView
+                android:id="@+id/emailTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/nomeUserText"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="80dp"
+                android:text="EMAIL: user@example.com"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tipoUtilizadorTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/emailTextView"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="25dp"
+                android:text="TIPO DE UTILIZADOR: Standard"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="105dp"
+                android:gravity="center_horizontal">
+
+                <Button
+                    android:id="@+id/changeUserInfoButton"
+                    android:layout_width="117dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Alterar Informações da Conta"
+                    android:backgroundTint="#50C878"
+                    android:layout_marginStart="45dp"
+                    android:layout_marginEnd="45dp" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+
+</FrameLayout>
+
+
+</FrameLayout>
