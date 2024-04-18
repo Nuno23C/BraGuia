@@ -11,6 +11,7 @@ public class User {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
+
     @NonNull
     @ColumnInfo(name = "username")
     private String username;
@@ -21,7 +22,7 @@ public class User {
     @ColumnInfo(name = "user_type")
     private String user_type;
 
-    public void setId(@NonNull int id) {this.id = id;}
+    public void setId(@NonNull int id) { this.id = id; }
 
     public void setUsername(@NonNull String username){
         this.username = username;
@@ -38,6 +39,7 @@ public class User {
     public int getId(){
         return this.id;
     }
+
     @NonNull
     public String getUsername(){
         return this.username;

@@ -22,6 +22,7 @@ public class UserRepository {
         userDAO = db.userDAO();
         users = userDAO.getAll();
     }
+
     public LiveData<List<User>> getAllUsers(){
         return users;
     }
@@ -32,14 +33,14 @@ public class UserRepository {
         });
     }
 
-    public class InsertAsyncTask extends AsyncTask<User,Void,Void> {
-
-        private UserDAO userDAO;
-        @Override
-        protected Void doInBackground(User... users){
-            userDAO.insert(users[0]);
-            return null;
-        }
-    }
+//    public class InsertAsyncTask extends AsyncTask<User,Void,Void> {
+//
+//        private UserDAO userDAO;
+//        @Override
+//        protected Void doInBackground(User... users){
+//            userDAO.insert(users[0]);
+//            return null;
+//        }
+//    }
 
 }

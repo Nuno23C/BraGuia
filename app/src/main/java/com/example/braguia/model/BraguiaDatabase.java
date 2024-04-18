@@ -13,13 +13,17 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities= {User.class}, version=1, exportSchema = false)
-
+@Database(entities= {Trail.class, User.class}, version=1, exportSchema = false)
 public abstract class BraguiaDatabase extends RoomDatabase {
 
     private static final String DATABASE_NAME = "Braguia";
+
     public abstract UserDAO userDAO();
-    private static volatile BraguiaDatabase INSTANCE;
+
+    public abstract TrailDAO trailDAO();
+
+    private static volatile BraguiaDatabase INSTANCE = null;
+
     private static final int NUMBER_OF_THREADS = 4;
     public static final ExecutorService databaseWriteExecutor =
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
@@ -41,24 +45,36 @@ public abstract class BraguiaDatabase extends RoomDatabase {
         @Override
         public void onOpen(@NonNull SupportSQLiteDatabase db) {
             super.onOpen(db);
-            new PopulateDbAsyn(INSTANCE);
+            populateDbAsync(INSTANCE);
         }
     };
 
-    static class PopulateDbAsyn extends AsyncTask<Void,Void,Void>{
+    public static final ExecutorService executorService = Executors.newFixedThreadPool(4);
 
-        private UserDAO userDAO;
+    public static void populateDbAsync(BraguiaDatabase catDatabase) {
+        executorService.execute(() -> {
+            UserDAO userDAO = catDatabase.userDAO();
+            TrailDAO trailDAO = catDatabase.trailDAO();
 
-        public PopulateDbAsyn(BraguiaDatabase catDatabase){
-            userDAO = catDatabase.userDAO();
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids){
             userDAO.deleteAll();
-            return null;
-        }
+            trailDAO.deleteAll();
+        });
     }
 
-
+//    static class PopulateDbAsyn extends AsyncTask<Void,Void,Void>{
+//
+//        private UserDAO userDAO;
+//        private TrailDAO trailDAO;
+//
+//        public PopulateDbAsyn(BraguiaDatabase catDatabase){
+//            userDAO = catDatabase.userDAO();
+//            trailDAO = catDatabase.trailDAO();
+//        }
+//
+//        @Override
+//        protected Void doInBackground(Void... voids){
+//            userDAO.deleteAll();
+//            return null;
+//        }
+//    }
 }

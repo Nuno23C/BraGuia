@@ -2,6 +2,7 @@ package com.example.braguia.viewModel;
 
 import android.app.Application;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
@@ -12,13 +13,14 @@ import java.util.List;
 
 public class UserViewModel extends AndroidViewModel {
 
-    private UserRepository userRepo;
+    private UserRepository userRepository;
+
     private final LiveData<List<User>> users;
 
-    public UserViewModel(Application application) {
+    public UserViewModel(@NonNull Application application) {
         super(application);
-        userRepo = new UserRepository(application);
-        users = userRepo.getAllUsers();
+        userRepository = new UserRepository(application);
+        users = userRepository.getAllUsers();
     }
 
     LiveData<List<User>> getAllUsers(){
@@ -26,6 +28,6 @@ public class UserViewModel extends AndroidViewModel {
     }
 
     public void insert(User user){
-        userRepo.insert(user);
+        userRepository.insert(user);
     }
 }
