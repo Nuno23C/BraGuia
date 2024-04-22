@@ -4,62 +4,63 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.widget.TextView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import com.example.braguia.R;
+import com.example.braguia.model.Trail;
+import com.example.braguia.model.ApiService;
+import com.example.braguia.repository.RetrofitClient;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link HomeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.List;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class HomeFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private ApiService apiService;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public HomeFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment HomeFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static HomeFragment newInstance(String param1, String param2) {
-        HomeFragment fragment = new HomeFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    private TextView trailsTextView;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
+        apiService = RetrofitClient.getRetrofitInstance().create(ApiService.class);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_home, container, false);
+
+        trailsTextView = rootView.findViewById(R.id.trailsTextView);
+
+        Call<List<Trail>> call = apiService.getTrails();
+        call.enqueue(new Callback<List<Trail>>() {
+            @Override
+            public void onResponse(Call<List<Trail>> call, Response<List<Trail>> response) {
+                if (response.isSuccessful()) {
+                    List<Trail> trails = response.body();
+                    if (trails != null && !trails.isEmpty()) {
+                        StringBuilder trailsText = new StringBuilder();
+                        for (Trail trail : trails) {
+                            trailsText.append(trail.getTrail_name()).append("\n");
+                        }
+                        trailsTextView.setText(trailsText.toString());
+                    }
+                } else {
+                    trailsTextView.setText("Erro ao carregar os roteiros");
+                }
+            }
+            @Override
+            public void onFailure(Call<List<Trail>> call, Throwable t) {
+                trailsTextView.setText("Erro de conexão");
+            }
+        });
+        return rootView;
     }
 }

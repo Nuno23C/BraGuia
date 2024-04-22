@@ -12,10 +12,10 @@
 
         <ImageButton
             android:id="@+id/premiumButton"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginStart="310dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="25dp"
             android:background="@android:color/transparent"
             android:padding="1dp"
             android:scaleType="fitCenter"
@@ -29,10 +29,10 @@
             />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/trailsTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Este é o conteúdo do fragmento inicial (Home)"
+            android:text="Nome"
             android:layout_gravity="center"
             android:background="#50C878"/>
 

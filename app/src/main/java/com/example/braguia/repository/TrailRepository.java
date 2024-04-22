@@ -9,12 +9,10 @@ import androidx.lifecycle.MediatorLiveData;
 // import com.example.braguia.BuildConfig;
 import com.example.braguia.model.BraguiaDatabase;
 import com.example.braguia.model.Trail;
-import com.example.braguia.model.TrailAPI;
+import com.example.braguia.model.ApiService;
 import com.example.braguia.model.TrailDAO;
 
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -47,7 +45,7 @@ public class TrailRepository {
                 .baseUrl("https://c14d-193-137-92-5.ngrok-free.app/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        TrailAPI api = retrofit.create(TrailAPI.class);
+        ApiService api = retrofit.create(ApiService.class);
         Call<List<Trail>> call = api.getTrails();
         call.enqueue(new retrofit2.Callback<List<Trail>>() {
             @Override
