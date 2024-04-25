@@ -34,6 +34,7 @@ public abstract class BraguiaDatabase extends RoomDatabase {
             synchronized (BraguiaDatabase.class){
                 if (INSTANCE == null){
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),BraguiaDatabase.class,DATABASE_NAME)
+                            .fallbackToDestructiveMigration()
                             .build();
                 }
             }

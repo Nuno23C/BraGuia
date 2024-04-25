@@ -27,10 +27,7 @@ public interface UserDAO {
     void updateUser(User user);
 
     @Query("SELECT * FROM user WHERE username LIKE :user_name LIMIT 1")
-    User findByName(String user_name);
-
-    @Query("SELECT * FROM user WHERE id LIKE :uid LIMIT 1")
-    User findById(int uid);
+    LiveData<User> findByName(String user_name);
 
     @Query("DELETE FROM user")
     void deleteAll();
@@ -38,7 +35,6 @@ public interface UserDAO {
     @Query("SELECT * FROM user")
     LiveData<List<User>> getAll();
 
-    @Query("SELECT * FROM user WHERE id IN (:usersID)")
-    LiveData<List<User>> getAllById(int[] usersID);
+
 
 }

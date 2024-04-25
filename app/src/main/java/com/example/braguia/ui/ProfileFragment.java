@@ -1,13 +1,20 @@
 package com.example.braguia.ui;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.braguia.R;
+import com.example.braguia.viewModel.UserViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,6 +27,13 @@ public class ProfileFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    private UserViewModel userViewModel;
+
+    private TextView usertype;
+    private TextView username;
+
+    private Button logout;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -60,6 +74,38 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        View view = inflater.inflate(R.layout.fragment_profile2, container, false);
+
+        username = view.findViewById(R.id.userName);
+        usertype = view.findViewById(R.id.userType);
+
+        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+        userViewModel.getUser().observe(getViewLifecycleOwner(),user -> {
+
+            username.setText(user.getUsername());
+            usertype.setText(user.getUser_type());
+
+        });
+
+        logout = view.findViewById(R.id.logoutButtonn);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                userViewModel.logout();
+
+                userViewModel.getLogoutStatus().observe(getViewLifecycleOwner(), success -> {
+
+                    if (success){
+                        Toast.makeText(getContext(), "LOGOUT EFETUADO COM SUCESSO!", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getContext(),LoginActivity.class));
+                    }
+                    else {
+                        Toast.makeText(getContext(), "ERRO NO LOGOUT", Toast.LENGTH_SHORT).show();
+                    }
+                } );
+            }
+        });
+        return view;
     }
 }

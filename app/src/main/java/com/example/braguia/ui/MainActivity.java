@@ -2,6 +2,7 @@ package com.example.braguia.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -14,8 +15,15 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentController;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.example.braguia.R;
 import com.example.braguia.databinding.ActivityMainBinding;
+import com.example.braguia.model.User;
+import com.example.braguia.viewModel.UserViewModel;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 

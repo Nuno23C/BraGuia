@@ -6,37 +6,45 @@
     android:background="@color/white"
     tools:context=".ui.HomeFragment">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <ImageButton
-            android:id="@+id/premiumButton"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="310dp"
-            android:layout_marginTop="25dp"
-            android:background="@android:color/transparent"
-            android:padding="1dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/premium" />
+                <ImageButton
+                    android:id="@+id/premiumButton"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="310dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@android:color/transparent"
+                    android:padding="1dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/premium"
+                    android:layout_marginLeft="310dp" />
 
-        <SearchView
-            android:layout_width="280dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            />
+                <SearchView
+                    android:layout_width="280dp"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="20dp" />
 
-        <TextView
-            android:id="@+id/trailsTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nome"
-            android:layout_gravity="center"
-            android:background="#50C878"/>
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="#50C878"
+                    android:text="Este é o conteúdo do fragmento inicial (Home)" />
 
-    </FrameLayout>
+                <Button
+                    android:id="@+id/loginMain"
+                    android:layout_width="153dp"
+                    android:layout_height="125dp"
+                    android:layout_gravity="center"
+                    android:text="LOGIN" />
+
+        </FrameLayout>
 
 
 </FrameLayout>
