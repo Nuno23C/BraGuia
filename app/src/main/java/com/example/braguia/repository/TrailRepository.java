@@ -3,14 +3,11 @@ package com.example.braguia.repository;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
-import androidx.lifecycle.MutableLiveData;
 
-// import com.example.braguia.BuildConfig;
+import com.example.braguia.BuildConfig;
 import com.example.braguia.model.API_service;
 import com.example.braguia.model.BraguiaDatabase;
 import com.example.braguia.model.Objects.Trail;
@@ -25,9 +22,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class TrailRepository {
 
-    private static final String BASE_URL = "https://579f8a2e08b3ae26545741d09e8f230a.serveo.net/";
+    private static final String BACKEND_URL = BuildConfig.BRAGUIA_API_URL;
     private static final String LAST_UPDATE = "last_update";
-    private ApiService api;
+    private API_service api;
     SharedPreferences sharedPreferences;
 
     private TrailDAO trailDAO;
@@ -37,11 +34,11 @@ public class TrailRepository {
 
     public TrailRepository(Application application) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(BACKEND_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        api = retrofit.create(ApiService.class);
+        api = retrofit.create(API_service.class);
         sharedPreferences = application.getApplicationContext().getSharedPreferences("BraguiaData", Context.MODE_PRIVATE);
 
         System.out.println("TrailRepository: starting");

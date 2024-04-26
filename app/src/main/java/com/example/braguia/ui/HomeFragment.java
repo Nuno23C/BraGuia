@@ -1,30 +1,21 @@
 package com.example.braguia.ui;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.braguia.R;
-import com.example.braguia.model.Trail;
-import com.example.braguia.model.ApiService;
-import com.example.braguia.repository.RetrofitClient;
+import com.example.braguia.model.Objects.Trail;
 import com.example.braguia.viewModel.TrailsViewModel;
 
 import java.util.ArrayList;
-import java.util.List;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class HomeFragment extends Fragment implements TrailsRecyclerViewAdapter.TrailClickListener {
 
@@ -33,14 +24,6 @@ public class HomeFragment extends Fragment implements TrailsRecyclerViewAdapter.
     private TrailsRecyclerViewAdapter adapter;
 
 //    public HomeFragment() {
-//    }
-
-//    public static TrailListFragment newInstance(int itemCount) {
-//        TrailListFragment fragment = new TrailListFragment();
-//        Bundle args = new Bundle();
-//        args.putInt(ARG_ITEM_COUNT, itemCount);
-//        fragment.setArguments(args);
-//        return fragment;
 //    }
 
     @Override
