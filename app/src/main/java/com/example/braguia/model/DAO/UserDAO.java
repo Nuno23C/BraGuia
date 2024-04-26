@@ -1,13 +1,14 @@
-package com.example.braguia.model;
+package com.example.braguia.model.DAO;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
-import androidx.room.DeleteTable;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
+
+import com.example.braguia.model.Objects.User;
 
 import java.util.List;
 
@@ -27,10 +28,7 @@ public interface UserDAO {
     void updateUser(User user);
 
     @Query("SELECT * FROM user WHERE username LIKE :user_name LIMIT 1")
-    User findByName(String user_name);
-
-    @Query("SELECT * FROM user WHERE id LIKE :uid LIMIT 1")
-    User findById(int uid);
+    LiveData<User> findByName(String user_name);
 
     @Query("DELETE FROM user")
     void deleteAll();
@@ -38,7 +36,6 @@ public interface UserDAO {
     @Query("SELECT * FROM user")
     LiveData<List<User>> getAll();
 
-    @Query("SELECT * FROM user WHERE id IN (:usersID)")
-    LiveData<List<User>> getAllById(int[] usersID);
+
 
 }

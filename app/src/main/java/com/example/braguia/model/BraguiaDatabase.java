@@ -1,8 +1,6 @@
 package com.example.braguia.model;
 
 import android.content.Context;
-import android.os.AsyncTask;
-import android.telecom.Call;
 
 import androidx.annotation.NonNull;
 import androidx.room.Database;
@@ -10,10 +8,17 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.example.braguia.model.DAO.AppDAO;
+import com.example.braguia.model.DAO.TrailDAO;
+import com.example.braguia.model.DAO.UserDAO;
+import com.example.braguia.model.Objects.App;
+import com.example.braguia.model.Objects.Trail;
+import com.example.braguia.model.Objects.User;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities= {Trail.class, User.class}, version=1, exportSchema = false)
+@Database(entities= {Trail.class, User.class, App.class}, version=2, exportSchema = false)
 public abstract class BraguiaDatabase extends RoomDatabase {
 
     private static final String DATABASE_NAME = "Braguia";
@@ -21,6 +26,8 @@ public abstract class BraguiaDatabase extends RoomDatabase {
     public abstract UserDAO userDAO();
 
     public abstract TrailDAO trailDAO();
+
+    public abstract AppDAO appDAO();
 
     private static volatile BraguiaDatabase INSTANCE = null;
 
@@ -34,6 +41,7 @@ public abstract class BraguiaDatabase extends RoomDatabase {
             synchronized (BraguiaDatabase.class){
                 if (INSTANCE == null){
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),BraguiaDatabase.class,DATABASE_NAME)
+                            .fallbackToDestructiveMigration()
                             .build();
                 }
             }
@@ -55,9 +63,11 @@ public abstract class BraguiaDatabase extends RoomDatabase {
         executorService.execute(() -> {
             UserDAO userDAO = catDatabase.userDAO();
             TrailDAO trailDAO = catDatabase.trailDAO();
+            AppDAO appDAO = catDatabase.appDAO();
 
             userDAO.deleteAll();
             trailDAO.deleteAll();
+            appDAO.deleteAll();
         });
     }
 

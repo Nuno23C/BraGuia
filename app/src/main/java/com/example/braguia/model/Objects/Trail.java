@@ -1,4 +1,4 @@
-package com.example.braguia.model;
+package com.example.braguia.model.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
