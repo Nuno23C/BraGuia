@@ -37,7 +37,6 @@ public class App {
     private String app_landing_page_text;
 
     public App(String app_name, List<Social> socials, List<Contact> contacts, List<Partner> partners, String app_desc, String app_landing_page_text){
-
         this.app_name = app_name;
         this.socials = socials;
         this.contacts = contacts;
