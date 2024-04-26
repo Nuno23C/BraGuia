@@ -1,36 +1,28 @@
 package com.example.braguia.repository;
 
-import static com.example.braguia.model.BraguiaDatabase.callback;
-
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.braguia.BuildConfig;
 import com.example.braguia.model.API_service;
 import com.example.braguia.model.BraguiaDatabase;
-import com.example.braguia.model.User;
-import com.example.braguia.model.UserDAO;
+import com.example.braguia.model.Objects.User;
+import com.example.braguia.model.DAO.UserDAO;
 
-import java.io.IOError;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
-import okhttp3.Headers;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Header;
 
 public class UserRepository {
 
@@ -43,7 +35,7 @@ public class UserRepository {
 
     SharedPreferences sharedPreferences;
 
-    private static final String BACKEND_URL = "https://579f8a2e08b3ae26545741d09e8f230a.serveo.net/";
+    private static final String BACKEND_URL = "http://29a644fa4087557d586fc409f92e75a1.serveo.net/";
 
     API_service user_api;
 
@@ -90,6 +82,8 @@ public class UserRepository {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
                 if (response.isSuccessful()) {
+
+                    System.out.println("SUCESSO CRL");
 
                     List<String> formatted_cookies = new ArrayList<>();
                     List<String> api_cookies = response.headers().values("Set-Cookie");//.stream().map(e -> e.split(";")[0]).collect(Collectors.toList());

@@ -5,7 +5,7 @@ import android.app.Application;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.example.braguia.model.User;
+import com.example.braguia.model.Objects.User;
 import com.example.braguia.repository.UserRepository;
 
 import java.util.List;

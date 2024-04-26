@@ -1,4 +1,4 @@
-package com.example.braguia.model;
+package com.example.braguia.model.Objects;
 
 import android.nfc.tech.NfcA;
 import android.text.BoringLayout;

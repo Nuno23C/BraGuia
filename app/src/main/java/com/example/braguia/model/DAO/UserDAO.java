@@ -1,13 +1,14 @@
-package com.example.braguia.model;
+package com.example.braguia.model.DAO;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
-import androidx.room.DeleteTable;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
+
+import com.example.braguia.model.Objects.User;
 
 import java.util.List;
 

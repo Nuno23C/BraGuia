@@ -1,16 +1,18 @@
 package com.example.braguia.ui;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.braguia.R;
+import com.example.braguia.viewModel.AppViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +25,8 @@ public class HomeFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -64,15 +68,32 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        Button btnLogin = (Button) view.findViewById(R.id.loginMain);
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Context c = v.getContext();
-                Intent intent = new Intent(c, LoginActivity.class);
-                c.startActivity(intent);
+
+        /*
+        app_desc = view.findViewById(R.id.app_desc);
+        app_land = view.findViewById(R.id.app_landing);
+        about = view.findViewById(R.id.about_button);
+        appViewModel = new ViewModelProvider(this).get(AppViewModel.class);
+        appViewModel.getApp().observe(getViewLifecycleOwner(),app -> {
+
+            if (app != null ) {
+
+                app_desc.setText(app.getApp_desc());
+                app_land.setText(app.getApp_landing_page_text());
+            }
+            else{
+                System.out.println("TÁ VAZIO ISTO");
             }
         });
+        about.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(),LoginActivity.class));
+            }
+        });
+
+         */
+
         return view;
     }
 

@@ -9,9 +9,8 @@ import androidx.lifecycle.MediatorLiveData;
 // import com.example.braguia.BuildConfig;
 import com.example.braguia.model.API_service;
 import com.example.braguia.model.BraguiaDatabase;
-import com.example.braguia.model.Trail;
-import com.example.braguia.model.API_service;
-import com.example.braguia.model.TrailDAO;
+import com.example.braguia.model.Objects.Trail;
+import com.example.braguia.model.DAO.TrailDAO;
 
 import java.util.List;
 

@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import androidx.recyclerview.widget.RecyclerView;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.example.braguia.model.Trail;
+import com.example.braguia.model.Objects.Trail;
 import com.squareup.picasso.Picasso;
 import com.example.braguia.R;
 
