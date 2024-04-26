@@ -35,7 +35,7 @@ public class UserRepository {
 
     SharedPreferences sharedPreferences;
 
-    private static final String BACKEND_URL = "http://29a644fa4087557d586fc409f92e75a1.serveo.net/";
+    private static final String BACKEND_URL = BuildConfig.BRAGUIA_API_URL;
 
     API_service user_api;
 

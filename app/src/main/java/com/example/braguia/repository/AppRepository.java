@@ -30,6 +30,7 @@ public class AppRepository {
     API_service app_api;
 
 
+
     public AppRepository(Application application) {
 
         BraguiaDatabase db = BraguiaDatabase.getInstance(application);
