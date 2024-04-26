@@ -18,11 +18,14 @@ public interface API_service {
 
     @GET("user")
     Call<User> getUser(@Header("Cookie") String cookies);
+
     @FormUrlEncoded
     @POST("login")
     Call<ResponseBody> login(@Field("username") String username, @Field("password") String password);
+
     @POST("logout")
     Call<User> logout(@Header("csrftoken") String cookies);
+
     @GET("trails")
     Call<List<Trail>> getTrails();
 
