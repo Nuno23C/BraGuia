@@ -6,7 +6,6 @@ import retrofit2.http.GET;
 
 public interface ApiService {
 
-
     @GET("trails")
     Call<List<Trail>> getTrails();
 

@@ -15,49 +15,71 @@ import java.util.List;
 
 public class TrailsRecyclerViewAdapter extends RecyclerView.Adapter<TrailsRecyclerViewAdapter.ViewHolder> {
 
-    private final List<Trail> mValues;
+    private List<Trail> mTrails;
 
-    public TrailsRecyclerViewAdapter(List<Trail> items) {
-        mValues = items;
+    private TrailClickListener trailClickListener;
+
+    public TrailsRecyclerViewAdapter(List<Trail> trails, TrailClickListener trailClickListener) {
+        mTrails = trails;
+        trailClickListener = trailClickListener;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_trail, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_trail_card, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        Trail trail = mValues.get(position);
+        Trail trail = mTrails.get(position);
+        holder.mTrailName.setText(trail.getTrail_name());
 
-        holder.mIdView.setText(trail.getId());
         Picasso.get()
                 .load(trail.getTrail_img().replace("http:", "https:"))
-                .into(holder.imageView);
+                .into(holder.mTrailImage);
+
+        holder.itemView.setOnClickListener(v -> {
+            if (trailClickListener != null) {
+                trailClickListener.onItemClick(position);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        return mTrails.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public final View mView;
-        public final TextView mIdView;
-        public final ImageView imageView;
+        private final TextView mTrailName;
+        private final ImageView mTrailImage;
 
         public ViewHolder(View view) {
             super(view);
-            mView = view;
-            mIdView = view.findViewById(R.id.item_number);
-            imageView = view.findViewById(R.id.card_image);
+            mTrailName = view.findViewById(R.id.trail_name);
+            mTrailImage = view.findViewById(R.id.trail_image);
         }
 
         @Override
         public String toString() {
-            return super.toString() + mIdView;
+            return super.toString() + mTrailName;
         }
+    }
+
+    public Trail getTrail(int position) {
+        return mTrails.get(position);
+    }
+
+    public void setTrails(List<Trail> trails) {
+        mTrails = trails;
+    }
+
+    public interface TrailClickListener {
+        void onItemClick(int position);
+    }
+
+    public void setTrailClickListener(TrailClickListener trailClickListener) {
+        this.trailClickListener = trailClickListener;
     }
 }

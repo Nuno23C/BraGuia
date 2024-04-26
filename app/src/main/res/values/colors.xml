@@ -6,5 +6,8 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="buttonLabel">#FFFFFF</color>
+    <color name="emerald500">#10B981</color>
+    <color name="emerald300">#6ee7b7</color>
+    <color name="emerald700">#047857</color>
 
 </resources>
