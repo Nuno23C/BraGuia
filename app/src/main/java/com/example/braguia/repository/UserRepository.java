@@ -86,7 +86,7 @@ public class UserRepository {
                     System.out.println("SUCESSO CRL");
 
                     List<String> formatted_cookies = new ArrayList<>();
-                    List<String> api_cookies = response.headers().values("Set-Cookie");//.stream().map(e -> e.split(";")[0]).collect(Collectors.toList());
+                    List<String> api_cookies = response.headers().values("Set-Cookie");
 
                     for (String header : api_cookies) {
                         String cookie = header.split(";")[0];
