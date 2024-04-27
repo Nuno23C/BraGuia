@@ -33,14 +33,13 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
         replaceFragment(new HomeFragment());
+        binding.bottomNavigationView.setSelectedItemId(R.id.home);
 
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
 
             if (item.getItemId() == R.id.home) {
                 replaceFragment(new HomeFragment());
-            } else if (item.getItemId() == R.id.map){
-                replaceFragment(new MapFragment());
             } else if (item.getItemId() == R.id.favourite){
                 replaceFragment(new FavouritesFragment());
             } else if (item.getItemId() == R.id.profile){
