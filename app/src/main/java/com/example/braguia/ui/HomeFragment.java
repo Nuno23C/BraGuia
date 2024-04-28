@@ -33,24 +33,18 @@ public class HomeFragment extends Fragment implements TrailsRecyclerViewAdapter.
         trailsViewModel = new ViewModelProvider(this).get(TrailsViewModel.class);
     }
 
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+   @Override 
+   public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        RecyclerView recyclerView = view.findViewById(R.id.trail_list);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-        recyclerView.setLayoutManager(layoutManager);
-
-        adapter = new TrailsRecyclerViewAdapter(new ArrayList<>(), this);
-        recyclerView.setAdapter(adapter);
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.trail_list);
 
         trailsViewModel = new ViewModelProvider(this).get(TrailsViewModel.class);
         trailsViewModel.getAllTrails().observe(getViewLifecycleOwner(), trails -> {
-            if (trails != null && trails.size() > 0) {
-                adapter.setTrails(trails);
-            } else {
-                // Decidir o que fazer se os dados ainda não estiverem disponíveis ou não forem encontrados. Talvez imprimir alguma cena no ecra
-            }
+            LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+            recyclerView.setLayoutManager(layoutManager);
+            adapter = new TrailsRecyclerViewAdapter(trails, this);
+            recyclerView.setAdapter(adapter);
         });
 
         return view;
