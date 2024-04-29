@@ -11,6 +11,8 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.braguia.R;
 import com.example.braguia.databinding.ActivityMainBinding;
@@ -19,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
     Button seeMapButton;
+    private NavController navController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
         replaceFragment(new HomeFragment());
         binding.bottomNavigationView.setSelectedItemId(R.id.home);
 

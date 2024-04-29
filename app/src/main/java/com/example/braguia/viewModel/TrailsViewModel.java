@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.example.braguia.model.Objects.Trail;
+import com.example.braguia.model.Objects.Pin;
 import com.example.braguia.repository.TrailRepository;
 
 import java.util.List;
@@ -25,5 +26,13 @@ public class TrailsViewModel extends AndroidViewModel {
 
     public LiveData<List<Trail>> getAllTrails() {
         return trails;
+    }
+
+    public LiveData<Trail> getTrailById(int id) {
+        return trailRepository.getTrailById(id);
+    }
+
+    public LiveData<List<Pin>> getPinsOfTrail(int id) {
+        return trailRepository.getPinsOfTrail(id);
     }
 }

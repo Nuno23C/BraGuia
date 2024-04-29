@@ -6,14 +6,20 @@ import android.content.SharedPreferences;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.example.braguia.BuildConfig;
 import com.example.braguia.model.API_service;
 import com.example.braguia.model.BraguiaDatabase;
+import com.example.braguia.model.Objects.Edge;
 import com.example.braguia.model.Objects.Trail;
+import com.example.braguia.model.Objects.Pin;
 import com.example.braguia.model.DAO.TrailDAO;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -63,16 +69,6 @@ public class TrailRepository {
         );
     }
 
-    public LiveData<List<Trail>> getAllTrails() {
-        return trails;
-    }
-
-    public void insertTrails(List<Trail> trails) {
-        BraguiaDatabase.databaseWriteExecutor.execute(() -> {
-            trailDAO.insert(trails);
-        });
-    }
-
     private void getTrails() {
         Call<List<Trail>> call = api.getTrails();
         System.out.println("entrou aqui");
@@ -98,6 +94,35 @@ public class TrailRepository {
                 System.out.println("onFailure: " + t);
             }
         });
+    }
+
+    public LiveData<List<Trail>> getAllTrails() {
+        return trails;
+    }
+
+    public void insertTrails(List<Trail> trails) {
+        BraguiaDatabase.databaseWriteExecutor.execute(() -> {
+            trailDAO.insert(trails);
+        });
+    }
+
+    public LiveData<Trail> getTrailById(int id) {
+        return trailDAO.getTrailById(id);
+    }
+
+    public LiveData<List<Pin>> getPinsOfTrail(int id) {
+        MutableLiveData<List<Pin>> pins = new MutableLiveData<>();
+        LiveData<Trail> trail = getTrailById(id);
+        List<Edge> edges = trail.getValue().getEdges();
+        Set<Pin> pinSet = new HashSet<>();
+
+        edges.forEach(edge -> {
+            pinSet.add(edge.getEdge_start());
+            pinSet.add(edge.getEdge_end());
+        });
+
+        pins.setValue(new ArrayList<>(pinSet));
+        return pins;
     }
 
     private long getLastUpdateTime() {

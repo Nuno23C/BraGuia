@@ -8,6 +8,7 @@
     android:background="#FFFFFF"
     tools:context=".ui.MainActivity">
 
+
     <FrameLayout
         android:id="@+id/frame_layout"
         android:layout_width="match_parent"
@@ -34,6 +35,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_navmenu" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
