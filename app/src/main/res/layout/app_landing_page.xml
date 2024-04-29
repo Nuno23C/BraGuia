@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_landing2"
+    android:background="@drawable/back_tog"
     tools:ignore="ExtraText">
 
 
@@ -12,7 +12,7 @@
         android:id="@+id/app_landing"
         android:layout_width="369dp"
         android:layout_height="147dp"
-        android:layout_marginBottom="128dp"
+        android:layout_marginBottom="312dp"
         android:gravity="center"
         android:text="APP_LANDING"
         android:textColor="@color/black"
@@ -42,9 +42,9 @@
         android:layout_width="128dp"
         android:layout_height="58dp"
         android:layout_marginTop="164dp"
-        android:backgroundTint="#b7ffc7"
+        android:backgroundTint="@color/appColor"
         android:text="COMEÇAR"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="13dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -52,7 +52,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/app_landing"
-        app:layout_constraintVertical_bias="0.358" />
+        app:layout_constraintVertical_bias="0.894" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -63,7 +63,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499"
-        app:srcCompat="@drawable/logo_noback4" />
+        app:layout_constraintVertical_bias="0.198"
+        app:srcCompat="@drawable/bragui_green" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="@drawable/fundo_caetaco"
     tools:context=".ui.MainActivity">
 
 
@@ -16,15 +16,15 @@
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        tools:layout_editor_absoluteX="0dp"/>
+        tools:layout_editor_absoluteX="0dp" />
 
     <View
         android:id="@+id/bar_separator"
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="#50C878"
-        app:layout_constraintTop_toBottomOf="@+id/frame_layout"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView" />
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintTop_toBottomOf="@+id/frame_layout" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
@@ -33,7 +33,10 @@
         android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
         app:menu="@menu/bottom_navmenu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

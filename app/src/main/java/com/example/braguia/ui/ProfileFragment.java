@@ -16,6 +16,10 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.braguia.R;
 import com.example.braguia.viewModel.UserViewModel;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link ProfileFragment#newInstance} factory method to
@@ -33,7 +37,28 @@ public class ProfileFragment extends Fragment {
     private TextView usertype;
     private TextView username;
 
+    private TextView dateSince;
+
+    private TextView setLastLogin;
+
+    private TextView setActive;
+
     private Button logout;
+
+    private Boolean is_active;
+
+    private String date;
+
+    private String lastLogin;
+
+    private String formatted_date;
+
+    private Date member_since;
+
+    private Date last_login;
+
+    private String formatted_last_login;
+
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -76,14 +101,49 @@ public class ProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile2, container, false);
 
-        username = view.findViewById(R.id.userName);
-        usertype = view.findViewById(R.id.userType);
+        username     = view.findViewById(R.id.userName);
+        usertype     = view.findViewById(R.id.userType);
+        dateSince    = view.findViewById(R.id.setDate);
+        setActive    = view.findViewById(R.id.setActive);
+        setLastLogin = view.findViewById(R.id.setLastLogin);
+
 
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         userViewModel.getUser().observe(getViewLifecycleOwner(),user -> {
 
             username.setText(user.getUsername());
             usertype.setText(user.getUser_type());
+            date = user.getDate_joined();
+            lastLogin = user.getLast_login();
+
+            SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'");
+            SimpleDateFormat outputFormat = new SimpleDateFormat("dd-MM-yyyy");
+            SimpleDateFormat outputFormatLL = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+
+            try {
+                member_since = inputFormat.parse(date);
+                last_login   = inputFormat.parse(lastLogin);
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+            formatted_date = outputFormat.format(member_since);
+            formatted_last_login = outputFormatLL.format(last_login);
+
+
+            dateSince.setText(formatted_date);
+            setLastLogin.setText(formatted_last_login);
+
+
+
+            is_active = user.isIs_active();
+
+            if (is_active){
+                setActive.setCompoundDrawablesWithIntrinsicBounds(R.drawable.circle_green, 0, 0, 0);
+            }
+            else{
+                setActive.setCompoundDrawablesWithIntrinsicBounds(R.drawable.circle_red, 0, 0, 0);
+            }
+
 
         });
 
@@ -98,7 +158,7 @@ public class ProfileFragment extends Fragment {
 
                     if (success){
                         Toast.makeText(getContext(), "LOGOUT EFETUADO COM SUCESSO!", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(getContext(),LoginActivity.class));
+                        startActivity(new Intent(getContext(),AppLandingPage.class));
                     }
                     else {
                         Toast.makeText(getContext(), "ERRO NO LOGOUT", Toast.LENGTH_SHORT).show();

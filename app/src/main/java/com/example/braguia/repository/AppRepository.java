@@ -59,17 +59,13 @@ public class AppRepository {
 
     public void getAppAPI(){
 
-        System.out.println("ENTREI GETAPI");
-
         Call<List<App>> call = app_api.getApp();
         call.enqueue(new Callback<List<App>>() {
             @Override
             public void onResponse(Call<List<App>> call, Response<List<App>> response) {
 
-                System.out.println("ENTREI ON RESPONSE");
-
                 if (response.isSuccessful()){
-                    System.out.println("CONSEGUI");
+
                     insert(response.body().get(0));
                 }
                 else{

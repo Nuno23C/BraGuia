@@ -14,6 +14,12 @@ import com.example.braguia.R;
 import com.example.braguia.viewModel.AppViewModel;
 import com.example.braguia.viewModel.UserViewModel;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
+
 public class AppLandingPage extends AppCompatActivity {
 
     private TextView app_desc;
@@ -21,6 +27,14 @@ public class AppLandingPage extends AppCompatActivity {
     private Button loginLanding;
 
     private AppViewModel appViewModel;
+    private UserViewModel userViewModel;
+
+    private Date currentDate;
+
+    private Date formatted_expire;
+
+    private String expireDate;
+
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,14 +55,47 @@ public class AppLandingPage extends AppCompatActivity {
                 app_desc.setText(app.getApp_desc());
                 app_land.setText(app.getApp_landing_page_text());
             }
-            else{
-                System.out.println("TÁ VAZIO ISTO");
-            }
+
         });
+
+        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         loginLanding.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(AppLandingPage.this,LoginActivity.class));
+                expireDate = userViewModel.getCookieExpire();
+
+
+                if (!expireDate.isEmpty()) {
+
+                    SimpleDateFormat sdf = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.ENGLISH);
+                    sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
+                    currentDate = new Date();
+
+                    //expireDate = "Sun, 28 Apr 2024 00:17:00 GMT";
+
+                    try {
+                        formatted_expire = sdf.parse(expireDate);
+
+                    } catch (ParseException e) {
+                        throw new RuntimeException(e);
+                    }
+
+
+                    if (formatted_expire.before(currentDate)) { // currentDate
+
+                        startActivity(new Intent(AppLandingPage.this, LoginActivity.class));
+                    } else {
+
+                        startActivity(new Intent(AppLandingPage.this, MainActivity.class));
+                    }
+                }
+                else{
+
+                    startActivity(new Intent(AppLandingPage.this, LoginActivity.class));
+                }
+
+
             }
         });
     }

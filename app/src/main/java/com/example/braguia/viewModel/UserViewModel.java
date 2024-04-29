@@ -45,6 +45,8 @@ public class UserViewModel extends AndroidViewModel {
 
     public LiveData<Boolean> getLogoutStatus(){return userRepo.getLogoutStatus();}
 
+    public String getCookieExpire(){return userRepo.getCookieExpire();}
+
 
 
     public void insert(User user){

@@ -4,27 +4,106 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/fundo_caetaco"
     tools:ignore="ExtraText">
+
+    <Button
+        android:id="@+id/traislHist"
+        android:layout_width="198dp"
+        android:layout_height="54dp"
+        android:background="@drawable/border_background"
+        android:drawableLeft="@drawable/ic_history_white"
+        android:text="Histórico Trails"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        app:backgroundTint="#12A064"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.819" />
+
+    <TextView
+        android:id="@+id/setDate"
+        android:layout_width="178dp"
+        android:layout_height="36dp"
+        android:gravity="center"
+        android:text="date"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.982"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.594" />
+
+    <TextView
+        android:id="@+id/last_login"
+        android:layout_width="216dp"
+        android:layout_height="36dp"
+        android:layout_marginBottom="108dp"
+        android:drawableLeft="@drawable/ic_last_login"
+        android:drawablePadding="9dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="7dp"
+        android:text="ÚLTIMO LOGIN:"
+        android:textSize="17dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.005"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/memberSinceBold"
+        app:layout_constraintVertical_bias="0.079" />
+
+    <View
+        android:layout_width="300dp"
+        android:layout_height="2dp"
+        android:layout_centerHorizontal="true"
+        android:background="#12a064"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.396" />
 
     <ImageView
         android:id="@+id/imageView5"
-        android:layout_width="142dp"
-        android:layout_height="126dp"
+        android:layout_width="127dp"
+        android:layout_height="97dp"
         android:background="@android:color/transparent"
+        android:backgroundTint="@android:color/transparent"
         android:scaleType="centerInside"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/userName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.193"
-        app:srcCompat="@drawable/profile_logo2" />
+        app:layout_constraintVertical_bias="0.542"
+        app:srcCompat="@drawable/profile_noback" />
+
+    <TextView
+        android:id="@+id/userType"
+        android:layout_width="181dp"
+        android:layout_height="36dp"
+        android:gravity="center"
+        android:text="usertype"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.995"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.529" />
 
     <TextView
         android:id="@+id/userTypeBold"
         android:layout_width="217dp"
         android:layout_height="36dp"
+        android:drawableLeft="@drawable/baseline_person_24"
         android:gravity="center"
+        android:paddingLeft="10dp"
         android:text="TIPO DE UTILIZADOR: "
         android:textSize="17dp"
         android:textStyle="bold"
@@ -33,21 +112,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.646" />
-
-    <TextView
-        android:id="@+id/userType"
-        android:layout_width="181dp"
-        android:layout_height="36dp"
-        android:gravity="center"
-        android:text="usertype"
-        android:textSize="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/userTypeBold"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.646" />
+        app:layout_constraintVertical_bias="0.529" />
 
     <TextView
         android:id="@+id/userName"
@@ -59,26 +124,71 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.273"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView5"
-        app:layout_constraintVertical_bias="0.023" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.335" />
 
     <Button
         android:id="@+id/logoutButtonn"
-        android:layout_width="157dp"
-        android:layout_height="54dp"
+        android:layout_width="127dp"
+        android:layout_height="46dp"
         android:background="@drawable/input_reg"
         android:text="LOGOUT"
         android:textSize="17dp"
-
         android:textStyle="bold"
-        app:backgroundTint="#12A064"
+        app:backgroundTint="@color/appColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.527"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.828" />
+        app:layout_constraintVertical_bias="0.937" />
+
+    <TextView
+        android:id="@+id/memberSinceBold"
+        android:layout_width="216dp"
+        android:layout_height="36dp"
+        android:layout_marginBottom="108dp"
+        android:drawableLeft="@drawable/membeer_since"
+        android:drawablePadding="7dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:text="MEMBRO DESDE:"
+        android:textSize="17dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/logoutButtonn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userTypeBold"
+        app:layout_constraintVertical_bias="0.105" />
+
+    <TextView
+        android:id="@+id/setLastLogin"
+        android:layout_width="178dp"
+        android:layout_height="36dp"
+        android:gravity="center"
+        android:text="date"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toTopOf="@+id/logoutButtonn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.978"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/setDate"
+        app:layout_constraintVertical_bias="0.074" />
+
+    <TextView
+        android:id="@+id/setActive"
+        android:layout_width="42dp"
+        android:layout_height="19dp"
+        android:drawableStart="@drawable/baseline_circle_24"
+        android:drawablePadding="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.905"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.346" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

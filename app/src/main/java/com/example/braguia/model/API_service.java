@@ -24,7 +24,7 @@ public interface API_service {
     Call<ResponseBody> login(@Field("username") String username, @Field("password") String password);
 
     @POST("logout")
-    Call<User> logout(@Header("csrftoken") String cookies);
+    Call<User> logout(@Header("sessionid") String cookies);
 
     @GET("trails")
     Call<List<Trail>> getTrails();

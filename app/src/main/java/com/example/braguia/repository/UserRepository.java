@@ -14,8 +14,13 @@ import com.example.braguia.model.BraguiaDatabase;
 import com.example.braguia.model.Objects.User;
 import com.example.braguia.model.DAO.UserDAO;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -73,8 +78,9 @@ public class UserRepository {
     }
 
 
-    public void loginAPI(String username, String password) {//, Context context){
+    public void loginAPI(String username, String password) {
 
+        SharedPreferences.Editor editor = sharedPreferences.edit();
         Call<ResponseBody> loginCall = user_api.login(username, password);
 
         loginCall.enqueue(new Callback<ResponseBody>() {
@@ -83,20 +89,30 @@ public class UserRepository {
 
                 if (response.isSuccessful()) {
 
-                    System.out.println("SUCESSO CRL");
-
                     List<String> formatted_cookies = new ArrayList<>();
-                    List<String> api_cookies = response.headers().values("Set-Cookie");//.stream().map(e -> e.split(";")[0]).collect(Collectors.toList());
+                    List<String> cookiesExpireDate = new ArrayList<>();
+                    List<String> api_cookies = response.headers().values("Set-Cookie");
 
                     for (String header : api_cookies) {
+
                         String cookie = header.split(";")[0];
                         formatted_cookies.add(cookie);
+
+                        String expireDate = header.split("expires=")[1].split(";")[0];
+                        cookiesExpireDate.add(expireDate);
+
+
                     }
 
                     if (!formatted_cookies.isEmpty()) {
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("csrftoken", formatted_cookies.get(0));
                         editor.putString("sessionid", formatted_cookies.get(1));
+                        editor.apply();
+                    }
+
+                    if(!cookiesExpireDate.isEmpty()){
+                        editor.putString("csrfExpire", cookiesExpireDate.get(0));
+                        editor.putString("sessionExpire", cookiesExpireDate.get(1));
                         editor.apply();
                     }
 
@@ -123,6 +139,11 @@ public class UserRepository {
 
     public LiveData<Boolean> getLogoutStatus() {
         return logoutResult;
+    }
+
+    public String getCookieExpire(){
+
+        return sharedPreferences.getString("sessionExpire","");
     }
 
 
@@ -180,7 +201,7 @@ public class UserRepository {
 
             //System.out.println(cookiesAPI);
 
-            Call<User> call = user_api.logout(csrftoken);
+            Call<User> call = user_api.logout(sessionid);
             call.enqueue(new Callback<User>() {
                 @Override
                 public void onResponse(Call<User> call, Response<User> response) {
@@ -190,6 +211,7 @@ public class UserRepository {
                         editor.putString("csrftoken", "");
                         editor.putString("sessionid", "");
                         editor.putString("liveUser", "");
+                        editor.putString("sessionExpire","");
                         editor.apply();
                         logoutResult.setValue(true);
                     } else {
