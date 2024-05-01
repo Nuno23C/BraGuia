@@ -8,31 +8,39 @@ import androidx.room.TypeConverter;
 import androidx.room.TypeConverters;
 
 import com.example.braguia.model.TypeConverter_BraGuia;
+import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
 
 @Entity(tableName = "app")
 @TypeConverters({TypeConverter_BraGuia.class})
-public class App {
+public class App implements Serializable {
 
     @PrimaryKey
     @NonNull
+    @SerializedName("app_name")
     @ColumnInfo(name = "app_name")
     private String app_name;
 
+    @SerializedName("socials")
     @ColumnInfo(name = "socials")
     private List<Social> socials;
 
+    @SerializedName("contacts")
     @ColumnInfo(name = "contacts")
     private List<Contact> contacts;
 
+    @SerializedName("partners")
     @ColumnInfo(name = "partners")
     private List<Partner> partners;
 
+    @SerializedName("app_desc")
     @ColumnInfo(name = "app_desc")
     private String app_desc;
 
+    @SerializedName("app_landing_page_text")
     @ColumnInfo(name = "app_landing_page_text")
     private String app_landing_page_text;
 
