@@ -6,7 +6,9 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
 
+import com.example.braguia.model.TypeConverter_BraGuia;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
@@ -14,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity(tableName = "trail",indices = @Index(value = {"id"},unique = true))
+@TypeConverters({TypeConverter_BraGuia.class})
 public class Trail implements Serializable {
 
     @PrimaryKey
@@ -27,7 +30,6 @@ public class Trail implements Serializable {
     private String trail_img;
 
     @SerializedName("edges")
-    @Ignore
     private List<Edge> edges;
 
     @SerializedName("trail_name")
@@ -59,7 +61,7 @@ public class Trail implements Serializable {
     public Trail(int id, String trail_img, List<Edge> edges, String trail_name, String trail_desc, int trail_duration, String trail_difficulty) {
         this.id = id;
         this.trail_img = trail_img;
-        this.edges = edges;
+        this.edges = new ArrayList<>(edges);
         this.trail_name = trail_name;
         this.trail_desc = trail_desc;
         this.trail_duration = trail_duration;
@@ -123,5 +125,9 @@ public class Trail implements Serializable {
         this.trail_difficulty = trail_difficulty;
     }
 
-    // TODO: equals(Trail trail) e toString(Trail trail)
+    public boolean equals(Trail t){
+        return (this.id == t.getId()) && (this.getTrail_img().equals(t.getTrail_img())) && (this.trail_name.equals(t.getTrail_name())) && (this.trail_desc.equals(t.getTrail_desc())) && (this.trail_duration == t.getTrail_duration()) && (this.trail_difficulty.equals(t.getTrail_difficulty()));
+    }
+
+    // TODO: toString(Trail trail)
 }

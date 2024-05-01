@@ -12,13 +12,14 @@ import com.example.braguia.model.DAO.AppDAO;
 import com.example.braguia.model.DAO.TrailDAO;
 import com.example.braguia.model.DAO.UserDAO;
 import com.example.braguia.model.Objects.App;
+import com.example.braguia.model.Objects.Edge;
 import com.example.braguia.model.Objects.Trail;
 import com.example.braguia.model.Objects.User;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities= {Trail.class, User.class, App.class}, version=2, exportSchema = false)
+@Database(entities= {Trail.class, Edge.class, User.class, App.class}, version=3, exportSchema = false)
 public abstract class BraguiaDatabase extends RoomDatabase {
 
     private static final String DATABASE_NAME = "Braguia";

@@ -3,11 +3,14 @@ package com.example.braguia.model;
 import androidx.room.TypeConverter;
 
 import com.example.braguia.model.Objects.Contact;
+import com.example.braguia.model.Objects.Edge;
 import com.example.braguia.model.Objects.Partner;
+import com.example.braguia.model.Objects.Pin;
 import com.example.braguia.model.Objects.Social;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.List;
 
 public class TypeConverter_BraGuia {
@@ -47,5 +50,26 @@ public class TypeConverter_BraGuia {
         return new Gson().toJson(partners);
     }
 
+    @TypeConverter
+    public static List<Edge> edge_fromString(String value) {
+        Type listType = new TypeToken<List<Edge>>() {}.getType();
+        return new Gson().fromJson(value, listType);
+    }
+
+    @TypeConverter
+    public static String edge_fromList(List<Edge> edges) {
+        Gson gson = new Gson();
+        return gson.toJson(edges);
+    }
+
+    @TypeConverter
+    public static Pin pins_fromString(String value) {
+        return new Gson().fromJson(value, Pin.class);
+    }
+
+    @TypeConverter
+    public static String pins_fromPin(Pin pin) {
+        return new Gson().toJson(pin);
+    }
 
 }
