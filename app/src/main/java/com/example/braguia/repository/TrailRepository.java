@@ -38,6 +38,7 @@ public class TrailRepository {
     private MediatorLiveData<List<Trail>> trails;
 
 
+
     public TrailRepository(Application application) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BACKEND_URL)
@@ -112,21 +113,26 @@ public class TrailRepository {
 
     public LiveData<List<Pin>> getPinsOfTrail(int id) {
         MutableLiveData<List<Pin>> pins = new MutableLiveData<>();
-        LiveData<Trail> trail = getTrailById(id);
-        List<Edge> edges = trail.getValue().getEdges();
-        Set<Pin> pinSet = new HashSet<>();
+        LiveData<Trail> trailLiveData = getTrailById(id);
 
-        edges.forEach(edge -> {
-            pinSet.add(edge.getEdge_start());
-            pinSet.add(edge.getEdge_end());
+        trailLiveData.observeForever(trail -> {
+            if (trail != null) {
+                List<Edge> edges = trail.getEdges();
+                Set<Pin> pinSet = new HashSet<>();
+
+                edges.forEach(edge -> {
+                    pinSet.add(edge.getEdge_start());
+                    pinSet.add(edge.getEdge_end());
+                });
+
+                pins.setValue(new ArrayList<>(pinSet));
+
+            }
         });
-
-        pins.setValue(new ArrayList<>(pinSet));
-
-        System.out.println("pins: " + pins);
 
         return pins;
     }
+
 
     private long getLastUpdateTime() {
         return sharedPreferences.getLong(LAST_UPDATE, 0);

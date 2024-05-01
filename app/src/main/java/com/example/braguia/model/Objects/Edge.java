@@ -1,29 +1,60 @@
 package com.example.braguia.model.Objects;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.Index;
+import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
+
+import com.example.braguia.model.TypeConverter_BraGuia;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
+
+@Entity(
+        tableName = "edge",
+        foreignKeys = @ForeignKey(
+                entity = Trail.class,
+                parentColumns = "id",
+                childColumns = "edge_trail",
+                onDelete = ForeignKey.CASCADE
+        ),
+        indices = {
+                @Index(value = {"id"}, unique = true),
+                @Index(value = {"edge_start"}, unique = true),
+                @Index(value = {"edge_end"}, unique = true)
+        })
+@TypeConverters({TypeConverter_BraGuia.class})
 public class Edge implements Serializable {
 
+    @PrimaryKey
+    @ColumnInfo(name = "id")
     @SerializedName("id")
     private int id;
 
+    @ColumnInfo(name = "edge_start")
     @SerializedName("edge_start")
     private Pin edge_start;
 
+    @ColumnInfo(name = "edge_end")
     @SerializedName("edge_end")
     private Pin edge_end;
 
+    @ColumnInfo(name = "edge_transport")
     @SerializedName("edge_transport")
     private String edge_transport;
 
+    @ColumnInfo(name = "edge_duration")
     @SerializedName("edge_duration")
     private int edge_duration;
 
+    @ColumnInfo(name = "edge_desc")
     @SerializedName("edge_desc")
     private String edge_desc;
 
+    @ColumnInfo(name = "edge_trail")
     @SerializedName("edge_trail")
     private int edge_trail;
 
