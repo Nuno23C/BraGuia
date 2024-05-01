@@ -98,7 +98,7 @@
                     android:layout_height="40dp"
                     app:srcCompat="@drawable/easy"
                     android:layout_marginEnd="10dp"
-                    android:contentDescription="TODO" />
+                    android:contentDescription="difficulty image" />
             </LinearLayout>
 
             <LinearLayout
@@ -106,6 +106,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
+                android:layout_marginBottom="16dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -122,8 +123,30 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/trail_desc"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
+
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:text="@string/trail_pins_disp"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/trail_pin_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginBottom="16dp"
+                android:clipToPadding="false"
+                tools:listitem="@layout/fragment_pin_card" />
 
             <Button
                 android:id="@+id/navButton"
@@ -131,7 +154,7 @@
                 android:layout_height="40dp"
                 android:background="@drawable/input_reg"
                 android:text="INICIAR"
-                android:textSize="17dp"
+                android:textSize="17sp"
                 android:textAlignment="center"
                 android:textStyle="bold"
                 app:backgroundTint="@color/appColor"

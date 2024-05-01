@@ -15,6 +15,10 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,6 +26,15 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.braguia.R;
+import com.example.braguia.model.Objects.Edge;
+import com.example.braguia.model.Objects.Pin;
+import com.example.braguia.model.Objects.Trail;
+import com.example.braguia.viewModel.TrailsViewModel;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.braguia.R;
@@ -51,11 +64,15 @@ public class TrailFragment extends Fragment implements OnMapReadyCallback {
 
     private static final int MY_PERMISSIONS_REQUEST_LOCATION = 1001;
 
+    private TrailsViewModel trailsViewModel;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
             trail = (Trail) getArguments().getSerializable("selectedTrail");
+            trailsViewModel = new ViewModelProvider(this).get(TrailsViewModel.class);
         }
     }
 
@@ -71,8 +88,9 @@ public class TrailFragment extends Fragment implements OnMapReadyCallback {
         TextView trail_duration = view.findViewById(R.id.trail_trail_duration);
         ImageView difficulty_image = view.findViewById(R.id.trail_trail_difficulty);
         ImageView imageView = view.findViewById(R.id.trail_trail_image);
-
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
+        ImageButton backButton = view.findViewById(R.id.backButton);
+        RecyclerView recyclerView = view.findViewById(R.id.trail_pin_list);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
 
         trail_name.setText(trail.getTrail_name());
         trail_desc.setText(trail.getTrail_desc());
@@ -96,18 +114,26 @@ public class TrailFragment extends Fragment implements OnMapReadyCallback {
                 break;
         }
 
-        String imageUrl = trail.getTrail_img();
-        Picasso.get().load(imageUrl).into(imageView);
+        Picasso.get()
+                .load(trail.getTrail_img().replace("http:", "https:"))
+                .into(imageView);
 
-        ImageButton backButton = view.findViewById(R.id.backButton);
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-                if (fragmentManager.getBackStackEntryCount() > 0) {
-                    fragmentManager.popBackStack();
-                }
+        backButton.setOnClickListener(v -> {
+            FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+            if (fragmentManager.getBackStackEntryCount() > 0) {
+                fragmentManager.popBackStack();
             }
+        });
+
+        trailsViewModel.getPinsOfTrail(trail.getId()).observe(getViewLifecycleOwner(), pins -> {
+            PinsRecyclerViewAdapter adapter = new PinsRecyclerViewAdapter(pins, new PinsRecyclerViewAdapter.PinClickListener() {
+
+                @Override
+                public void onItemClick(int position) {
+
+                }
+            });
+            recyclerView.setAdapter(adapter);
         });
 
         Button nav = view.findViewById(R.id.navButton);
@@ -195,7 +221,6 @@ public class TrailFragment extends Fragment implements OnMapReadyCallback {
             }
         }
     }
-
 
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
