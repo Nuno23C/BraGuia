@@ -151,17 +151,6 @@ public class TrailFragment extends Fragment implements OnMapReadyCallback {
         return view;
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-
     public void setGoogleMap() {
         trail = (Trail) getArguments().getSerializable("selectedTrail");
 
@@ -220,6 +209,17 @@ public class TrailFragment extends Fragment implements OnMapReadyCallback {
                 Log.e("TrailFragment", "Permissão ACCESS_FINE_LOCATION não dada");
             }
         }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((MainActivity) getActivity()).hideBottomNavigationView();
     }
 
     @Override

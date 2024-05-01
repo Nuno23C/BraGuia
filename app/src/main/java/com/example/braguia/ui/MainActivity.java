@@ -1,6 +1,7 @@
 package com.example.braguia.ui;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
@@ -19,8 +20,6 @@ import com.example.braguia.databinding.ActivityMainBinding;
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
-    Button seeMapButton;
-    private NavController navController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
 
         replaceFragment(new HomeFragment());
         binding.bottomNavigationView.setSelectedItemId(R.id.home);
-
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
 
@@ -60,5 +58,15 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout,fragment);
         fragmentTransaction.commit();
+
     }
+
+    public void showBottomNavigationView() {
+        binding.bottomNavigationView.setVisibility(View.VISIBLE);
+    }
+
+    public void hideBottomNavigationView() {
+        binding.bottomNavigationView.setVisibility(View.GONE);
+    }
+
 }
