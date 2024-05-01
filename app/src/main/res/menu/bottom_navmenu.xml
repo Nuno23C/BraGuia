@@ -7,8 +7,12 @@
     <item android:title="INÍCIO"
         android:icon="@drawable/home"
         android:id="@+id/home"/>
+    <item android:title="CONTACTOS"
+        android:icon="@drawable/ic_contacts"
+        android:id="@+id/contacts" />
     <item android:title="PERFIL"
         android:icon="@drawable/profile"
         android:id="@+id/profile"/>
+
 
 </menu>

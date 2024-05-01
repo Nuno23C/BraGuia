@@ -95,6 +95,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:clipToPadding="false"
+                android:orientation="horizontal"
                 tools:listitem="@layout/fragment_trail_card" />
 
         </LinearLayout>

@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
-import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.braguia.R;
 import com.example.braguia.databinding.ActivityMainBinding;
@@ -48,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
                 replaceFragment(new FavouritesFragment());
             } else if (item.getItemId() == R.id.profile){
                 replaceFragment(new ProfileFragment());
+            } else if (item.getItemId() == R.id.contacts){
+                replaceFragment(new AppFragment());
             }
             return true;
         });
