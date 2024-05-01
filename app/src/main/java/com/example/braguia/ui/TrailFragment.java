@@ -10,17 +10,26 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.fragment.app.FragmentManager;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.braguia.R;
+import com.example.braguia.model.Objects.Edge;
+import com.example.braguia.model.Objects.Pin;
 import com.example.braguia.model.Objects.Trail;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class TrailFragment extends Fragment {
 
@@ -29,6 +38,7 @@ public class TrailFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
             trail = (Trail) getArguments().getSerializable("selectedTrail");
         }
@@ -43,8 +53,11 @@ public class TrailFragment extends Fragment {
         TextView trail_duration = view.findViewById(R.id.trail_trail_duration);
         ImageView difficulty_image = view.findViewById(R.id.trail_trail_difficulty);
         ImageView imageView = view.findViewById(R.id.trail_trail_image);
+        ImageButton backButton = view.findViewById(R.id.backButton);
+        RecyclerView recyclerView = view.findViewById(R.id.trail_pin_list);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
 
-        if (trail!=null){
+        if (trail != null){
 
             trail_name.setText(trail.getTrail_name());
             trail_desc.setText(trail.getTrail_desc());
@@ -67,22 +80,53 @@ public class TrailFragment extends Fragment {
                     difficulty_image.setImageResource(R.drawable.easy);
                     break;
             }
-            //String imageUrl = trail.getTrail_img();
-            //Picasso.get().load(imageUrl).into(imageView);
-        }
 
-        ImageButton backButton = view.findViewById(R.id.backButton);
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            Picasso.get()
+                    .load(trail.getTrail_img().replace("http:", "https:"))
+                    .into(imageView);
+
+            backButton.setOnClickListener(v -> {
                 FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
                 if (fragmentManager.getBackStackEntryCount() > 0) {
                     fragmentManager.popBackStack();
                 }
-            }
-        });
+            });
+
+//            getPinsOfTrail(trail).observe(getViewLifecycleOwner(), pins -> {
+//                PinsRecyclerViewAdapter adapter = new PinsRecyclerViewAdapter(pins, new PinsRecyclerViewAdapter.PinClickListener() {
+//
+//                    @Override
+//                    public void onItemClick(int position) {
+//
+//                    }
+//                });
+//                recyclerView.setAdapter(adapter);
+//            });
+        }
 
         return view;
+    }
+
+    public LiveData<List<Pin>> getPinsOfTrail(Trail trail) {
+        MutableLiveData<List<Pin>> pins = new MutableLiveData<>();
+        List<Edge> edges = trail.getEdges();
+
+//        System.out.println("aaaa");
+//
+//        for (Edge edge: edges) {
+//            System.out.println("edge_start: " + edge.getEdge_start());
+//        }
+
+        Set<Pin> pinSet = new HashSet<>();
+
+        edges.forEach(edge -> {
+            pinSet.add(edge.getEdge_start());
+            pinSet.add(edge.getEdge_end());
+        });
+
+        pins.setValue(new ArrayList<>(pinSet));
+
+        return pins;
     }
 
     @Override

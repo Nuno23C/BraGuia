@@ -122,6 +122,9 @@ public class TrailRepository {
         });
 
         pins.setValue(new ArrayList<>(pinSet));
+
+        System.out.println("pins: " + pins);
+
         return pins;
     }
 
