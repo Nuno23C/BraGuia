@@ -48,17 +48,13 @@ public class HomeFragment extends Fragment {
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("selectedTrail", selectedTrail);
 
-
-
-//                    FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-//                    FragmentTransaction transaction = fragmentManager.beginTransaction();
-//                    TrailFragment fragment = new TrailFragment();
-//                    fragment.setArguments(bundle);
-//                    transaction.replace(R.id.frame_layout, fragment);
-//                    transaction.addToBackStack(null);
-//                    transaction.commit();
-
-
+                    FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+                    FragmentTransaction transaction = fragmentManager.beginTransaction();
+                    TrailFragment fragment = new TrailFragment();
+                    fragment.setArguments(bundle);
+                    transaction.replace(R.id.frame_layout, fragment);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
                 }
             });
             recyclerView.setAdapter(adapter);

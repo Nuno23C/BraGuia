@@ -72,26 +72,21 @@ public class TrailRepository {
 
     private void getTrails() {
         Call<List<Trail>> call = api.getTrails();
-        System.out.println("entrou aqui");
         call.enqueue(new retrofit2.Callback<List<Trail>>() {
             @Override
             public void onResponse(Call<List<Trail>> call, Response<List<Trail>> response) {
                 if (response.isSuccessful()) {
-                    System.out.println("RESPONSE.BODY: " + response.body());
                     insertTrails(response.body());
 
                     long currentTime = System.currentTimeMillis();
                     setLastUpdateTime(currentTime);
                 } else {
-//                    Log.e("main", "onFailure: " + response.errorBody());
                     System.out.println("error: " + response);
-
                 }
             }
 
             @Override
             public void onFailure(Call<List<Trail>> call, Throwable t) {
-//                Log.e("main", "onFailure: " + t.getMessage());
                 System.out.println("onFailure: " + t);
             }
         });

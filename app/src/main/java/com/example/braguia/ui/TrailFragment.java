@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,6 +25,7 @@ import com.example.braguia.R;
 import com.example.braguia.model.Objects.Edge;
 import com.example.braguia.model.Objects.Pin;
 import com.example.braguia.model.Objects.Trail;
+import com.example.braguia.viewModel.TrailsViewModel;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -35,12 +37,15 @@ public class TrailFragment extends Fragment {
 
     private Trail trail;
 
+    private TrailsViewModel trailsViewModel;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
             trail = (Trail) getArguments().getSerializable("selectedTrail");
+            trailsViewModel = new ViewModelProvider(this).get(TrailsViewModel.class);
         }
     }
 
@@ -92,41 +97,19 @@ public class TrailFragment extends Fragment {
                 }
             });
 
-//            getPinsOfTrail(trail).observe(getViewLifecycleOwner(), pins -> {
-//                PinsRecyclerViewAdapter adapter = new PinsRecyclerViewAdapter(pins, new PinsRecyclerViewAdapter.PinClickListener() {
-//
-//                    @Override
-//                    public void onItemClick(int position) {
-//
-//                    }
-//                });
-//                recyclerView.setAdapter(adapter);
-//            });
+            trailsViewModel.getPinsOfTrail(trail.getId()).observe(getViewLifecycleOwner(), pins -> {
+                PinsRecyclerViewAdapter adapter = new PinsRecyclerViewAdapter(pins, new PinsRecyclerViewAdapter.PinClickListener() {
+
+                    @Override
+                    public void onItemClick(int position) {
+
+                    }
+                });
+                recyclerView.setAdapter(adapter);
+            });
         }
 
         return view;
-    }
-
-    public LiveData<List<Pin>> getPinsOfTrail(Trail trail) {
-        MutableLiveData<List<Pin>> pins = new MutableLiveData<>();
-        List<Edge> edges = trail.getEdges();
-
-//        System.out.println("aaaa");
-//
-//        for (Edge edge: edges) {
-//            System.out.println("edge_start: " + edge.getEdge_start());
-//        }
-
-        Set<Pin> pinSet = new HashSet<>();
-
-        edges.forEach(edge -> {
-            pinSet.add(edge.getEdge_start());
-            pinSet.add(edge.getEdge_end());
-        });
-
-        pins.setValue(new ArrayList<>(pinSet));
-
-        return pins;
     }
 
     @Override

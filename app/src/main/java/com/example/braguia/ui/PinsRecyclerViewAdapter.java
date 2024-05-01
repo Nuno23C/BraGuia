@@ -22,13 +22,6 @@ public class PinsRecyclerViewAdapter extends RecyclerView.Adapter<PinsRecyclerVi
 
     public PinsRecyclerViewAdapter(List<Pin> pins, PinClickListener clickListener) {
         mPins = pins;
-
-//        System.out.println("IMPRIMIR PINS");
-//
-//        for (Pin pin : pins) {
-//            System.out.println("pin: " + pin.getPin_name());
-//        }
-
         pinClickListener = clickListener;
     }
 

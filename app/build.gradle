@@ -49,7 +49,6 @@ dependencies {
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
     annotationProcessor libs.room.compiler
-//    implementation 'com.android.support:appcompat-v7:23.2.0'
 
     //retrofit
     implementation 'com.google.code.gson:gson:2.8.6'
@@ -60,9 +59,11 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.8'
     implementation 'com.jakewharton.picasso:picasso2-okhttp3-downloader:1.1.0'
 
+    // Navigation
     implementation 'androidx.navigation:navigation-fragment:2.4.0'
     implementation 'androidx.navigation:navigation-ui:2.4.0'
 
+    // Google Services
     implementation 'com.google.android.gms:play-services-maps:18.2.0'
     implementation 'com.google.android.gms:play-services-location:21.2.0'
 
