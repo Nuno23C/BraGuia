@@ -114,7 +114,11 @@ public class TrailFragment extends Fragment implements OnMapReadyCallback {
         nav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setGoogleMap();
+                if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSIONS_REQUEST_LOCATION);
+                } else {
+                    setGoogleMap();
+                }
             }
         });
 
@@ -141,7 +145,6 @@ public class TrailFragment extends Fragment implements OnMapReadyCallback {
             coordinates.add(trailLocation_start);
             coordinates.add(trailLocation_end);
         }
-        System.out.println("coordenadas  " + coordinates);
         if (coordinates.size() < 2){
             System.out.println("Coordenadas insuficientes");
         } else{

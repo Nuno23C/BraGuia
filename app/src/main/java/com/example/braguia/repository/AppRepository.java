@@ -36,7 +36,6 @@ public class AppRepository {
         BraguiaDatabase db = BraguiaDatabase.getInstance(application);
         appDAO = db.appDAO();
         app = appDAO.getAll();
-        System.out.println(BACKEND_URL);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BACKEND_URL)

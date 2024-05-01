@@ -60,10 +60,8 @@ public class TrailRepository {
                     long diff = currentTime - lastUpdateTime;
                     long threshold = 24 * 60 * 60 * 1000; // 24 hours
                     if (localTrails != null && !localTrails.isEmpty() && diff < threshold) {
-                        System.out.println("if case 1");
                         trails.setValue(localTrails);
                     } else {
-                        System.out.println("if case 2");
                         getTrails();
                     }
                 }
@@ -72,7 +70,6 @@ public class TrailRepository {
 
     private void getTrails() {
         Call<List<Trail>> call = api.getTrails();
-        System.out.println("entrou aqui");
         call.enqueue(new retrofit2.Callback<List<Trail>>() {
             @Override
             public void onResponse(Call<List<Trail>> call, Response<List<Trail>> response) {
