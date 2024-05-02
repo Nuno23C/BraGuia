@@ -8,48 +8,43 @@ import androidx.lifecycle.LiveData;
 import com.example.braguia.model.Objects.User;
 import com.example.braguia.repository.UserRepository;
 
-import java.util.List;
-
 public class UserViewModel extends AndroidViewModel {
 
-    private UserRepository userRepo;
-    private final LiveData<List<User>> users;
+    private UserRepository userRepository;
 
+    private final LiveData<User> userAPI;
 
     public UserViewModel(Application application) {
         super(application);
-        userRepo = new UserRepository(application);
-        users = userRepo.getAllUsers();
+        userRepository = new UserRepository(application);
+        userAPI = userRepository.getUser();
     }
 
-    public LiveData<List<User>> getAllUsers(){
-        return users;
+    public void login(String username, String password) {
+        userRepository.loginAPI(username,password);
     }
 
-    public void login(String username, String password){
-
-        userRepo.loginAPI(username,password);
+    public void logout() {
+        userRepository.logoutAPI();
     }
 
-    public void logout(){
-
-        userRepo.logoutAPI();
+    public LiveData<Boolean> getLoginStatus() {
+        return userRepository.getLoginStatus();
     }
 
-    public LiveData<Boolean> getLoginStatus(){
-        return userRepo.getLoginStatus();
-    }
-    public LiveData<User> getUser(){
-        return userRepo.getUser();
+    public LiveData<User> getUser() {
+        return userAPI;
     }
 
-    public LiveData<Boolean> getLogoutStatus(){return userRepo.getLogoutStatus();}
+    public LiveData<Boolean> getLogoutStatus() {
+        return userRepository.getLogoutStatus();
+    }
 
-    public String getCookieExpire(){return userRepo.getCookieExpire();}
+    public String getCookieExpire() {
+        return userRepository.getCookieExpire();
+    }
 
-
-
-    public void insert(User user){
-        userRepo.insert(user);
+    public void insert(User user) {
+        userRepository.insert(user);
     }
 }

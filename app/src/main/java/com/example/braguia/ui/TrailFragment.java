@@ -4,7 +4,7 @@ package com.example.braguia.ui;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Location;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,14 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -32,28 +28,23 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.braguia.R;
 import com.example.braguia.model.Objects.Edge;
-import com.example.braguia.model.Objects.Pin;
 import com.example.braguia.model.Objects.Trail;
 import com.example.braguia.viewModel.TrailsViewModel;
-import androidx.fragment.app.FragmentManager;
 
-import com.example.braguia.R;
-import com.example.braguia.model.Objects.Edge;
-import com.example.braguia.model.Objects.Trail;
+import com.example.braguia.viewModel.UserViewModel;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class TrailFragment extends Fragment implements OnMapReadyCallback {
 
@@ -61,10 +52,9 @@ public class TrailFragment extends Fragment implements OnMapReadyCallback {
     private ArrayList<LatLng> coordinates;
     private GoogleMap googleMap;
     private FusedLocationProviderClient fusedLocationClient;
-
     private static final int MY_PERMISSIONS_REQUEST_LOCATION = 1001;
-
     private TrailsViewModel trailsViewModel;
+    private UserViewModel userViewModel;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -73,6 +63,7 @@ public class TrailFragment extends Fragment implements OnMapReadyCallback {
         if (getArguments() != null) {
             trail = (Trail) getArguments().getSerializable("selectedTrail");
             trailsViewModel = new ViewModelProvider(this).get(TrailsViewModel.class);
+            userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         }
     }
 
@@ -84,18 +75,17 @@ public class TrailFragment extends Fragment implements OnMapReadyCallback {
         coordinates = new ArrayList<>();
 
         TextView trail_name = view.findViewById(R.id.trail_trail_name);
-        TextView trail_desc = view.findViewById(R.id.trail_trail_desc);
-        TextView trail_duration = view.findViewById(R.id.trail_trail_duration);
-        ImageView difficulty_image = view.findViewById(R.id.trail_trail_difficulty);
-        ImageView imageView = view.findViewById(R.id.trail_trail_image);
-        ImageButton backButton = view.findViewById(R.id.backButton);
-        RecyclerView recyclerView = view.findViewById(R.id.trail_pin_list);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-
         trail_name.setText(trail.getTrail_name());
-        trail_desc.setText(trail.getTrail_desc());
-        trail_duration.setText(String.valueOf(trail.getTrail_duration()));
 
+        TextView trail_desc = view.findViewById(R.id.trail_trail_desc);
+        trail_desc.setText(trail.getTrail_desc());
+
+        TextView trail_duration = view.findViewById(R.id.trail_trail_duration);
+        trail_duration.setText(String.valueOf(trail.getTrail_duration() + " min"));
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
+
+        ImageView difficulty_image = view.findViewById(R.id.trail_trail_difficulty);
         switch (trail.getTrail_difficulty()) {
             case "E":
                 difficulty_image.setImageResource(R.drawable.easy);
@@ -114,10 +104,12 @@ public class TrailFragment extends Fragment implements OnMapReadyCallback {
                 break;
         }
 
+        ImageView imageView = view.findViewById(R.id.trail_trail_image);
         Picasso.get()
                 .load(trail.getTrail_img().replace("http:", "https:"))
                 .into(imageView);
 
+        ImageView backButton = view.findViewById(R.id.backButton);
         backButton.setOnClickListener(v -> {
             FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
             if (fragmentManager.getBackStackEntryCount() > 0) {
@@ -125,6 +117,20 @@ public class TrailFragment extends Fragment implements OnMapReadyCallback {
             }
         });
 
+//        ImageView favButton = view.findViewById(R.id.favButton);
+//        favButton.setOnClickListener(v -> {
+//            Drawable currentDrawable = favButton.getDrawable();
+//            Drawable favoriteTrueDrawable = ContextCompat.getDrawable(getActivity(), R.drawable.favorite_true);
+//
+//            if (currentDrawable.equals(favoriteTrueDrawable)) {
+//                favButton.setImageResource(R.drawable.favorite_false);
+//            } else {
+//                favButton.setImageResource(R.drawable.favorite_true);
+//            }
+//        });
+
+        RecyclerView recyclerView = view.findViewById(R.id.trail_pin_list);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         trailsViewModel.getPinsOfTrail(trail.getId()).observe(getViewLifecycleOwner(), pins -> {
             PinsRecyclerViewAdapter adapter = new PinsRecyclerViewAdapter(pins, new PinsRecyclerViewAdapter.PinClickListener() {
 
@@ -136,8 +142,13 @@ public class TrailFragment extends Fragment implements OnMapReadyCallback {
             recyclerView.setAdapter(adapter);
         });
 
-        Button nav = view.findViewById(R.id.navButton);
-        nav.setOnClickListener(new View.OnClickListener() {
+        Button navButton = view.findViewById(R.id.navButton);
+        userViewModel.getUser().observe(getViewLifecycleOwner(), user -> {
+            if (!user.getUser_type().equals("Premium")) {
+                navButton.setVisibility(View.GONE);
+            }
+        });
+        navButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {

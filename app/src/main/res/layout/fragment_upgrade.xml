@@ -20,7 +20,7 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/go_back_button"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="20dp"
@@ -199,13 +199,13 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <Button
-            android:id="@+id/go_back_button"
+            android:id="@+id/upgrade_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:text="Começar agora"
             android:textSize="18sp"
-            app:backgroundTint="@color/emerald500" />
+            app:backgroundTint="@color/appColor" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

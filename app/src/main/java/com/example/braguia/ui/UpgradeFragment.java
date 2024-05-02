@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,14 +25,14 @@ public class UpgradeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_upgrade, container, false);
 
-//        ImageButton backButton = view.findViewById(R.id.go_back_button);
-//
-//        backButton.setOnClickListener(v -> {
-//            FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-//            if (fragmentManager.getBackStackEntryCount() > 0) {
-//                fragmentManager.popBackStack();
-//            }
-//        });
+        ImageView backButton = view.findViewById(R.id.go_back_button);
+
+        backButton.setOnClickListener(v -> {
+            FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+            if (fragmentManager.getBackStackEntryCount() > 0) {
+                fragmentManager.popBackStack();
+            }
+        });
 
         return view;
     }

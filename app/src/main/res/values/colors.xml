@@ -9,9 +9,7 @@
     <color name="darkBlue">#052659</color>
     <color name="darkGreen">#0C7075</color>
     <color name="appColor">#12A064</color>
-    <color name="emerald500">#10B981</color>
-    <color name="emerald300">#6ee7b7</color>
-    <color name="emerald700">#047857</color>
+    <color name="appColor_light">#19DC8B</color>
     <color name="header_background">#9ca3af</color>
 
 </resources>

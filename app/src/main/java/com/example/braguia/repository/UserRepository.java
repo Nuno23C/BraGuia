@@ -33,7 +33,6 @@ public class UserRepository {
 
     private UserDAO userDAO;
     private LiveData<List<User>> users;
-    private LiveData<User> user;
     private String liveUser;
     private MutableLiveData<Boolean> loginResult;
     private MutableLiveData<Boolean> logoutResult;
@@ -76,7 +75,6 @@ public class UserRepository {
         String username = sharedPreferences.getString("liveUser", "");
         return userDAO.findByName(username);
     }
-
 
     public void loginAPI(String username, String password) {
 
@@ -152,8 +150,7 @@ public class UserRepository {
         String csrftoken = sharedPreferences.getString("csrftoken", "");
         String sessionid = sharedPreferences.getString("sessionid", "");
 
-        if (csrftoken != "" && sessionid != "") {
-
+        if (!csrftoken.isEmpty() && !sessionid.isEmpty()) {
             StringBuilder cookiesAPI = new StringBuilder("");
             cookiesAPI.append(csrftoken).append(";").append(sessionid);
 
@@ -168,17 +165,15 @@ public class UserRepository {
                         User user = response.body();
                         insert(user);
                         liveUser = user.getUsername();
-                        if (liveUser != "") {
+                        if (!liveUser.isEmpty()) {
                             SharedPreferences.Editor editor = sharedPreferences.edit();
                             editor.putString("liveUser", liveUser);
                             editor.apply();
                         }
-
                     } else {
                         System.out.println(response);
                     }
                 }
-
 
                 @Override
                 public void onFailure(Call<User> call, Throwable t) {
@@ -194,7 +189,7 @@ public class UserRepository {
         String csrftoken = sharedPreferences.getString("csrftoken", "");
         String sessionid = sharedPreferences.getString("sessionid", "");
 
-        if (csrftoken != "" && sessionid != "") {
+        if (!csrftoken.isEmpty() && !sessionid.isEmpty()) {
 
             StringBuilder cookiesAPI = new StringBuilder("");
             cookiesAPI.append(csrftoken).append(";").append(sessionid);
