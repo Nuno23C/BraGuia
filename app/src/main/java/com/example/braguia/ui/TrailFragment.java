@@ -23,6 +23,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -81,7 +83,7 @@ public class TrailFragment extends Fragment implements OnMapReadyCallback {
         trail_desc.setText(trail.getTrail_desc());
 
         TextView trail_duration = view.findViewById(R.id.trail_trail_duration);
-        trail_duration.setText(String.valueOf(trail.getTrail_duration() + " min"));
+        trail_duration.setText(trail.getTrail_duration() + " min");
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
 
@@ -111,11 +113,10 @@ public class TrailFragment extends Fragment implements OnMapReadyCallback {
 
         ImageView backButton = view.findViewById(R.id.backButton);
         backButton.setOnClickListener(v -> {
-            FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-            if (fragmentManager.getBackStackEntryCount() > 0) {
-                fragmentManager.popBackStack();
-            }
+            NavController navController = Navigation.findNavController(v);
+            navController.navigate(R.id.action_TrailFragment_to_HomeFragment);
         });
+
 
 //        ImageView favButton = view.findViewById(R.id.favButton);
 //        favButton.setOnClickListener(v -> {

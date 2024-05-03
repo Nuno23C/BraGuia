@@ -48,8 +48,6 @@ public class TrailRepository {
         api = retrofit.create(API_service.class);
         sharedPreferences = application.getApplicationContext().getSharedPreferences("BraguiaData", Context.MODE_PRIVATE);
 
-        System.out.println("TrailRepository: starting");
-
         BraguiaDatabase db = BraguiaDatabase.getInstance(application);
         trailDAO = db.trailDAO();
         trails = new MediatorLiveData<>();

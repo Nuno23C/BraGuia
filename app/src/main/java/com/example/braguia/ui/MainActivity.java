@@ -1,6 +1,8 @@
 package com.example.braguia.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -9,56 +11,56 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.example.braguia.R;
 import com.example.braguia.databinding.ActivityMainBinding;
+import com.example.braguia.model.Objects.User;
+import com.example.braguia.viewModel.UserViewModel;
+
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.Objects;
+import java.util.TimeZone;
 
 public class MainActivity extends AppCompatActivity {
 
-    ActivityMainBinding binding;
+    private ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        EdgeToEdge.enable(this);
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        replaceFragment(new HomeFragment());
-        binding.bottomNavigationView.setSelectedItemId(R.id.home);
-
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
-
-            if (item.getItemId() == R.id.home) {
-                replaceFragment(new HomeFragment());
-            } else if (item.getItemId() == R.id.favourite){
-                replaceFragment(new FavouritesFragment());
-            } else if (item.getItemId() == R.id.profile){
-                replaceFragment(new ProfileFragment());
-            } else if (item.getItemId() == R.id.contacts){
-                replaceFragment(new AppFragment());
+            int id = item.getItemId();
+            if (id == R.id.home) {
+                navController.navigate(R.id.HomeFragment);
+            } else if (id == R.id.favourite) {
+                navController.navigate(R.id.FavouritesFragment);
+            } else if (id == R.id.profile) {
+                navController.navigate(R.id.ProfileFragment);
+            } else if (id == R.id.contacts) {
+                navController.navigate(R.id.ContactFragment);
             }
             return true;
         });
-    }
-
-    private void replaceFragment(Fragment fragment){
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frame_layout,fragment);
-        fragmentTransaction.commit();
-
     }
 
     public void showBottomNavigationView() {
@@ -69,4 +71,18 @@ public class MainActivity extends AppCompatActivity {
         binding.bottomNavigationView.setVisibility(View.GONE);
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
 }

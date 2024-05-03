@@ -14,6 +14,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -49,13 +51,8 @@ public class HomeFragment extends Fragment {
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("selectedTrail", selectedTrail);
 
-                    FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-                    FragmentTransaction transaction = fragmentManager.beginTransaction();
-                    TrailFragment fragment = new TrailFragment();
-                    fragment.setArguments(bundle);
-                    transaction.replace(R.id.frame_layout, fragment);
-                    transaction.addToBackStack(null);
-                    transaction.commit();
+                    NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
+                    navController.navigate(R.id.action_HomeFragment_to_TrailFragment, bundle);
                 }
             });
             recyclerView.setAdapter(adapter);
@@ -63,12 +60,8 @@ public class HomeFragment extends Fragment {
 
         ImageView upgrade_to_premium = view.findViewById(R.id.upgrade_to_premium);
         upgrade_to_premium.setOnClickListener(v -> {
-            FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-            FragmentTransaction transaction = fragmentManager.beginTransaction();
-            UpgradeFragment fragment = new UpgradeFragment();
-            transaction.replace(R.id.frame_layout, fragment);
-            transaction.addToBackStack(null);
-            transaction.commit();
+            NavController navController = Navigation.findNavController(v);
+            navController.navigate(R.id.action_HomeFragment_to_UpgradeToPremium);
         });
 
         return view;

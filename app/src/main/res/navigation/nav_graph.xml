@@ -19,9 +19,31 @@
     </fragment>
 
     <fragment
+        android:id="@+id/FavouritesFragment"
+        android:label="Favourites Fragment"
+        android:name="com.example.braguia.ui.FavouritesFragment"
+        tools:layout="@layout/fragment_favourites">
+    </fragment>
+
+    <fragment
+        android:id="@+id/ContactFragment"
+        android:label="Contact Fragment"
+        android:name="com.example.braguia.ui.AppFragment"
+        tools:layout="@layout/activity_contacts">
+    </fragment>
+
+    <fragment
+        android:id="@+id/ProfileFragment"
+        android:label="Profile Fragment"
+        android:name="com.example.braguia.ui.ProfileFragment"
+        tools:layout="@layout/fragment_profile2">
+    </fragment>
+
+    <fragment
         android:id="@+id/TrailFragment"
         android:label="Trail Fragment"
-        android:name="com.example.braguia.ui.TrailFragment">
+        android:name="com.example.braguia.ui.TrailFragment"
+        tools:layout="@layout/fragment_trail">
         <action
             android:id="@+id/action_TrailFragment_to_HomeFragment"
             app:destination="@id/HomeFragment" />
@@ -46,13 +68,10 @@
         android:id="@+id/UpgradeFragment"
         android:label="Upgrade Activity"
         android:name="com.example.braguia.ui.UpgradeFragment"
-        tools:layout="@layout/fragment_upgrade">>
+        tools:layout="@layout/fragment_upgrade">
         <action
             android:id="@+id/action_UpgradeFragment_to_HomeFragment"
             app:destination="@id/HomeFragment" />
-        <!--        <action-->
-        <!--            android:id="@+id/action_TrailFragment_to_PinFragment"-->
-        <!--            app:destination="@id/PinFragment" />-->
     </fragment>
 
 </navigation>

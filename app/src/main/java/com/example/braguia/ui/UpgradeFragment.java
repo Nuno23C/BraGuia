@@ -9,7 +9,8 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.example.braguia.R;
 
@@ -26,12 +27,9 @@ public class UpgradeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_upgrade, container, false);
 
         ImageView backButton = view.findViewById(R.id.go_back_button);
-
         backButton.setOnClickListener(v -> {
-            FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-            if (fragmentManager.getBackStackEntryCount() > 0) {
-                fragmentManager.popBackStack();
-            }
+            NavController navController = Navigation.findNavController(v);
+            navController.navigate(R.id.action_UpgradeFragment_to_HomeFragment);
         });
 
         return view;

@@ -21,11 +21,10 @@ import com.google.android.material.textfield.TextInputEditText;
 
 public class LoginActivity extends AppCompatActivity {
 
+    UserViewModel userViewModel;
     EditText inputUser;
     EditText inputPass;
     Button login;
-    UserViewModel userViewModel;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,43 +33,28 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         TextView button = findViewById(R.id.newAccount);
 
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this,Register.class));
-            }
-        });
+        button.setOnClickListener(v -> startActivity(new Intent(LoginActivity.this, Register.class)));
 
         inputUser = findViewById(R.id.inputUsername);
         inputPass = findViewById(R.id.inputPass1);
         login = findViewById(R.id.buttonLogin);
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
 
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        login.setOnClickListener(v -> {
 
-                String username = inputUser.getText().toString();
-                String password = inputPass.getText().toString();
+            String username = inputUser.getText().toString();
+            String password = inputPass.getText().toString();
 
-                userViewModel.login(username,password);
+            userViewModel.login(username,password);
 
-                userViewModel.getLoginStatus().observe(LoginActivity.this, success -> {
-                    if (success){
-                        Toast.makeText(LoginActivity.this, "LOGIN EFETUADO COM SUCESSO!", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(LoginActivity.this,MainActivity.class));
-                    }
-                    else {
-                        Toast.makeText(LoginActivity.this, "DADOS INCORRETOS", Toast.LENGTH_SHORT).show();
-                    }
-
-                });
-            }
+            userViewModel.getLoginStatus().observe(LoginActivity.this, success -> {
+                if (success){
+                    Toast.makeText(LoginActivity.this, "LOGIN EFETUADO COM SUCESSO!", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                } else {
+                    Toast.makeText(LoginActivity.this, "DADOS INCORRETOS", Toast.LENGTH_SHORT).show();
+                }
+            });
         });
-    }
-
-    interface LoginCallback {
-        void onSuccess(boolean success);
-
     }
 }
