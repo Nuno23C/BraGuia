@@ -40,7 +40,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0"
-                app:srcCompat="@drawable/premium" />
+                app:srcCompat="@drawable/premium4" />
 
             <TextView
                 android:id="@+id/textView4"
@@ -48,6 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="BraGuia Premium"
+                android:textColor="@color/black"
                 android:textSize="22sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -61,6 +62,7 @@
                 android:layout_marginTop="8dp"
                 android:text="@string/upgrade_subtitle"
                 android:textSize="14sp"
+                android:textColor="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView4" />
@@ -73,6 +75,7 @@
                 android:layout_marginBottom="10dp"
                 android:text="@string/upgrade_under_subtitle"
                 android:textSize="14sp"
+                android:textColor="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView5" />
@@ -109,6 +112,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Vantagens"
+                    android:textColor="@color/black"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -117,6 +121,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Descrição"
+                    android:textColor="@color/black"
                     android:textSize="16sp"
                     android:textStyle="bold" />
             </TableRow>
@@ -133,12 +138,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Capacidade de navegação" />
+                    android:text="Capacidade de navegação"
+                    android:textColor="@color/black"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textColor="@color/black"
                     android:text="Acesso completo a todos os recursos de navegação, incluindo navegação offline." />
             </TableRow>
 
@@ -154,12 +161,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Consulta de mídia" />
+                    android:text="Consulta de mídia"
+                    android:textColor="@color/black" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textColor="@color/black"
                     android:text="Visualização imediata de imagens e vídeos dos diversos destinos." />
             </TableRow>
 
@@ -176,13 +185,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingEnd="10dp"
-                    android:text="Experiência sem publicidade" />
+                    android:text="Experiência sem publicidade"
+                    android:textColor="@color/black"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Explore sem interrupções de anúncios." />
+                    android:text="Explore sem interrupções de anúncios."
+                    android:textColor="@color/black"/>
             </TableRow>
 
         </TableLayout>
@@ -205,6 +216,7 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:text="Começar agora"
+            android:textColor="@color/white"
             android:textSize="18sp"
             app:backgroundTint="@color/appColor" />
     </LinearLayout>

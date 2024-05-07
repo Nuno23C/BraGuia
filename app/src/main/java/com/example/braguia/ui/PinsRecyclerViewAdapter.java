@@ -13,6 +13,7 @@ import com.example.braguia.model.Objects.Trail;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.Objects;
 
 public class PinsRecyclerViewAdapter extends RecyclerView.Adapter<PinsRecyclerViewAdapter.ViewHolder> {
 
@@ -71,4 +72,13 @@ public class PinsRecyclerViewAdapter extends RecyclerView.Adapter<PinsRecyclerVi
     public void setTrailClickListener(PinClickListener pinClickListener) {
         this.pinClickListener = pinClickListener;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Pin pin = (Pin) o;
+        return Objects.equals(pin.getId(), pin.getId());
+    }
+
 }

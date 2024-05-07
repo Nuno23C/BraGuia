@@ -1,6 +1,5 @@
 package com.example.braguia.ui;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -99,7 +98,7 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_profile2, container, false);
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
         username     = view.findViewById(R.id.userName);
         usertype     = view.findViewById(R.id.userType);

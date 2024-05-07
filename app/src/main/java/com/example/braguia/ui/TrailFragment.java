@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +31,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.braguia.R;
 import com.example.braguia.model.Objects.Edge;
+import com.example.braguia.model.Objects.Pin;
 import com.example.braguia.model.Objects.Trail;
 import com.example.braguia.viewModel.TrailsViewModel;
 
@@ -133,15 +135,36 @@ public class TrailFragment extends Fragment implements OnMapReadyCallback {
         RecyclerView recyclerView = view.findViewById(R.id.trail_pin_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         trailsViewModel.getPinsOfTrail(trail.getId()).observe(getViewLifecycleOwner(), pins -> {
-            PinsRecyclerViewAdapter adapter = new PinsRecyclerViewAdapter(pins, new PinsRecyclerViewAdapter.PinClickListener() {
 
+            List<Pin> pinsList = new ArrayList<>();
+
+            for (Pin pin : pins) {
+                boolean nameExists = false;
+                for (Pin existingPin : pinsList) {
+                    if (pin.getPin_name().equals(existingPin.getPin_name())) {
+                        nameExists = true;
+                        break;
+                    }
+                }
+                if (!nameExists) {
+                    pinsList.add(pin);
+                }
+            }
+
+            PinsRecyclerViewAdapter adapter = new PinsRecyclerViewAdapter(pinsList, new PinsRecyclerViewAdapter.PinClickListener() {
                 @Override
                 public void onItemClick(int position) {
-
+                    Pin selectedPin = pins.get(position);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("selectedPin", selectedPin);
+                    bundle.putSerializable("trackbackTrail", trail);
+                    NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
+                    navController.navigate(R.id.action_TrailFragment_to_PinFragment, bundle);
                 }
             });
             recyclerView.setAdapter(adapter);
         });
+
 
         Button navButton = view.findViewById(R.id.navButton);
         userViewModel.getUser().observe(getViewLifecycleOwner(), user -> {

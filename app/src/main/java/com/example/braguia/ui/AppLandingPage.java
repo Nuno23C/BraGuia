@@ -61,8 +61,6 @@ public class AppLandingPage extends AppCompatActivity {
                     SimpleDateFormat sdf = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.ENGLISH);
                     sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
 
-                    //expireDate = "Sun, 28 Apr 2024 00:17:00 GMT";
-
                     Date formatted_expire;
                     try {
                         formatted_expire = sdf.parse(expireDate);

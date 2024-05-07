@@ -13,4 +13,13 @@ Desfrute de Braga! Daqui parta à descoberta do Gerês, do Norte de Portugal e d
     <string name="upgrade_title">BraGuia Premium</string>
     <string name="upgrade_subtitle">Transforme sua viagem numa aventura única!</string>
     <string name="upgrade_under_subtitle">Atualize agora para a versão premium</string>
+
+    <!-- Pin Fragment -->
+    <string name="premium_text">MEDIA APENAS DISPONÍVEL PARA UTILIZADORES PREMIUM. <u>CLIQUE AQUI</u> PARA SE TORNAR UM!</string>
+    <string name="latitude">LATITUDE:  </string>
+    <string name="altitude">ALTITUDE:  </string>
+    <string name="longitude">LONGITUDE:  </string>
+    <string name="audio_na">ÁUDIO NÃO DISPONÍVEL</string>
+    <string name="play">REPRODUZIR</string>
+
 </resources>
