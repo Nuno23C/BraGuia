@@ -15,6 +15,9 @@ public interface TrailDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(List<Trail> trails);
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertOne(Trail trail);
+
     @Query("SELECT DISTINCT * FROM trail")
     LiveData<List<Trail>> getAllTrails();
 

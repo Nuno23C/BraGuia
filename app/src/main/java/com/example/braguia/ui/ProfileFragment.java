@@ -11,6 +11,8 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.example.braguia.R;
 import com.example.braguia.viewModel.UserViewModel;
@@ -41,6 +43,8 @@ public class ProfileFragment extends Fragment {
     private TextView setLastLogin;
 
     private TextView setActive;
+
+    private Button trailHist;
 
     private Button logout;
 
@@ -105,6 +109,7 @@ public class ProfileFragment extends Fragment {
         dateSince    = view.findViewById(R.id.setDate);
         setActive    = view.findViewById(R.id.setActive);
         setLastLogin = view.findViewById(R.id.setLastLogin);
+        trailHist    = view.findViewById(R.id.traislHist);
 
 
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
@@ -163,6 +168,15 @@ public class ProfileFragment extends Fragment {
                         Toast.makeText(getContext(), "ERRO NO LOGOUT", Toast.LENGTH_SHORT).show();
                     }
                 } );
+            }
+        });
+
+        trailHist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
+                navController.navigate(R.id.action_ProfileFragment_to_TrailHistoryFragment);
             }
         });
         return view;

@@ -178,6 +178,10 @@ public class TrailFragment extends Fragment implements OnMapReadyCallback {
                 if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSIONS_REQUEST_LOCATION);
                 } else {
+                    assert getArguments() != null;
+                    Trail trail_hist = (Trail) getArguments().getSerializable("selectedTrail");
+                    assert trail_hist != null;
+                    trailsViewModel.insertTrailHistory(trail_hist);
                     setGoogleMap();
                 }
             }

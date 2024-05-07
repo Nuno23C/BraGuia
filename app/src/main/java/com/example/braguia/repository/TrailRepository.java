@@ -2,6 +2,7 @@ package com.example.braguia.repository;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 
 import androidx.lifecycle.LiveData;
@@ -15,7 +16,11 @@ import com.example.braguia.model.Objects.Edge;
 import com.example.braguia.model.Objects.Trail;
 import com.example.braguia.model.Objects.Pin;
 import com.example.braguia.model.DAO.TrailDAO;
+import com.example.braguia.viewModel.TrailsViewModel;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -37,6 +42,13 @@ public class TrailRepository {
 
     private MediatorLiveData<List<Trail>> trails;
 
+    private MediatorLiveData<List<Trail>> historyTrails;
+
+    private List<Trail> auxID;
+
+    private List<Trail> trailsID;
+
+    private List<Trail> restoreID;
 
 
     public TrailRepository(Application application) {
@@ -51,6 +63,9 @@ public class TrailRepository {
         BraguiaDatabase db = BraguiaDatabase.getInstance(application);
         trailDAO = db.trailDAO();
         trails = new MediatorLiveData<>();
+        historyTrails = new MediatorLiveData<>();
+        trailsID = new ArrayList<>();
+        auxID = new ArrayList<>();
         trails.addSource(
                 trailDAO.getAllTrails(), localTrails -> {
                     long currentTime = System.currentTimeMillis();
@@ -134,4 +149,55 @@ public class TrailRepository {
         editor.putLong(LAST_UPDATE, timestamp);
         editor.apply();
     }
+
+    public void insertTrailHistory(Trail trail) {
+
+        String json = sharedPreferences.getString("trailsID", "");
+
+        if (!json.isEmpty()) {
+            Gson gson = new Gson();
+            Type type = new TypeToken<List<Trail>>() {
+            }.getType();
+
+            trailsID = gson.fromJson(json, type);
+            trailsID.add(trail);
+        }
+        else {
+
+            trailsID = new ArrayList<>();
+            trailsID.add(trail);
+        }
+
+        Gson gson = new Gson();
+        String json2 = gson.toJson(trailsID);
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("trailsID", json2);
+        editor.apply();
+
+    }
+
+
+    public LiveData<List<Trail>> getTrailHistory(){
+
+        String json = sharedPreferences.getString("trailsID", "");
+
+        if (!json.isEmpty()) {
+            Gson gson = new Gson();
+            Type type = new TypeToken<List<Trail>>(){}.getType();
+            restoreID = gson.fromJson(json, type);
+
+            historyTrails.setValue(restoreID);
+        }
+
+        return historyTrails;
+    }
+
+    public void deleteHistory(){
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.remove("trailsID");
+        editor.apply();
+    }
+
 }

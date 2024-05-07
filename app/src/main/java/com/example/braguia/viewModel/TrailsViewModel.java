@@ -35,4 +35,12 @@ public class TrailsViewModel extends AndroidViewModel {
     public LiveData<List<Pin>> getPinsOfTrail(int id) {
         return trailRepository.getPinsOfTrail(id);
     }
+
+    public void insertTrailHistory(Trail trail){
+        trailRepository.insertTrailHistory(trail);}
+
+    public LiveData<List<Trail>> getTrailHistory(){return trailRepository.getTrailHistory();}
+
+    public void deleteHistory(){trailRepository.deleteHistory();}
+
 }

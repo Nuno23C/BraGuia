@@ -37,6 +37,9 @@
         android:label="Profile Fragment"
         android:name="com.example.braguia.ui.ProfileFragment"
         tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_ProfileFragment_to_TrailHistoryFragment"
+            app:destination="@id/TrailHistoryFragment" />
     </fragment>
 
     <fragment
@@ -74,6 +77,16 @@
         <action
             android:id="@+id/action_UpgradeFragment_to_HomeFragment"
             app:destination="@id/HomeFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/TrailHistoryFragment"
+        android:label="Trail History"
+        android:name="com.example.braguia.ui.TrailHistoryFragment"
+        tools:layout="@layout/fragment_trail_history" >
+        <action
+            android:id="@+id/action_TrailHistoryFragment_to_ProfileFragment"
+            app:destination="@id/ProfileFragment" />
     </fragment>
 
 </navigation>
