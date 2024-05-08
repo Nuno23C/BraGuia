@@ -2,6 +2,7 @@
     <!-- Base application theme. -->
     <style name="Base.DarkTheme.BraGuia" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="android:statusBarColor">#2B2F2E</item>
+        <item name="colorPrimary">#FF0808</item>
     </style>
 </resources>

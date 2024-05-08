@@ -9,6 +9,13 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!-- Dark mode theme. -->
+    <style name="AppTheme.Dark" parent="Theme.MaterialComponents">
+        <!-- Customize dark mode styles here. -->
+        <!-- For example, change background color to black -->
+        <item name="android:windowBackground">@android:color/black</item>
+    </style>
+
     <!-- The default font for RecyclerView items is too small.
     The margin is a simple delimiter between the words. -->
     <style name="word_title">

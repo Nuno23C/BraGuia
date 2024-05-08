@@ -1,7 +1,9 @@
 package com.example.braguia.ui;
 
+import android.Manifest;
 import android.app.KeyguardManager;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +12,8 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -21,8 +25,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.braguia.R;
+import com.example.braguia.model.Objects.Edge;
 import com.example.braguia.model.Objects.Trail;
+import com.example.braguia.viewModel.LocationService;
 import com.example.braguia.viewModel.TrailsViewModel;
+import com.google.android.gms.maps.model.LatLng;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class HomeFragment extends Fragment {
 

@@ -110,10 +110,14 @@ public class PinFragment extends Fragment {
         setAlt.setText(altitude);
 
         backButton.setOnClickListener(v -> {
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("selectedTrail",trackbackTrail);
-            NavController navController = Navigation.findNavController(v);
-            navController.navigate(R.id.action_PinFragment_to_TrailFragment,bundle);
+            if (trackbackTrail != null) {
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("selectedTrail", trackbackTrail);
+                NavController navController = Navigation.findNavController(v);
+                navController.navigate(R.id.action_PinFragment_to_TrailFragment, bundle);
+            } else {
+                requireActivity().finish();
+            }
         });
 
         List<Media> media = pin.getMedia();

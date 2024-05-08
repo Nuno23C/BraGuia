@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,6 +48,8 @@ public class ProfileFragment extends Fragment {
     private Button trailHist;
 
     private Button logout;
+
+    private ImageButton settings;
 
     private Boolean is_active;
 
@@ -111,10 +114,8 @@ public class ProfileFragment extends Fragment {
         setLastLogin = view.findViewById(R.id.setLastLogin);
         trailHist    = view.findViewById(R.id.traislHist);
 
-
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         userViewModel.getUser().observe(getViewLifecycleOwner(),user -> {
-
             username.setText(user.getUsername());
             usertype.setText(user.getUser_type());
             date = user.getDate_joined();
@@ -137,8 +138,6 @@ public class ProfileFragment extends Fragment {
             dateSince.setText(formatted_date);
             setLastLogin.setText(formatted_last_login);
 
-
-
             is_active = user.isIs_active();
 
             if (is_active){
@@ -150,6 +149,15 @@ public class ProfileFragment extends Fragment {
 
 
         });
+
+        settings = view.findViewById(R.id.settingsButton);
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(),SettingsActivity.class));
+            }
+        });
+
 
         logout = view.findViewById(R.id.logoutButtonn);
         logout.setOnClickListener(new View.OnClickListener() {
