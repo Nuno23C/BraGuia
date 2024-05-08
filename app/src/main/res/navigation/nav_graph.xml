@@ -53,6 +53,9 @@
         <action
             android:id="@+id/action_TrailFragment_to_PinFragment"
             app:destination="@id/PinFragment" />
+        <action
+            android:id="@+id/action_TrailFragment_to_TrailHistoryFragment"
+            app:destination="@id/TrailHistoryFragment" />
     </fragment>
 
 
@@ -87,6 +90,9 @@
         <action
             android:id="@+id/action_TrailHistoryFragment_to_ProfileFragment"
             app:destination="@id/ProfileFragment" />
+        <action
+            android:id="@+id/action_TrailHistoryFragment_to_TrailFragment"
+            app:destination="@id/TrailFragment" />
     </fragment>
 
 </navigation>

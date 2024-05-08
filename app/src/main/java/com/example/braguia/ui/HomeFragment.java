@@ -53,6 +53,7 @@ public class HomeFragment extends Fragment {
 
                     NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
                     navController.navigate(R.id.action_HomeFragment_to_TrailFragment, bundle);
+
                 }
             });
             recyclerView.setAdapter(adapter);

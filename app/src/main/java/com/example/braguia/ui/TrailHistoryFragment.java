@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -56,7 +57,7 @@ public class TrailHistoryFragment extends Fragment {
 
         if (trailsHist != null) {
             trailsHist.observe(getViewLifecycleOwner(), trails -> {
-                if (trails != null){
+                if (trails != null) {
                     adapter.setTrails(trails);
                 }
             });

@@ -52,8 +52,8 @@ public class MainActivity extends AppCompatActivity {
             int id = item.getItemId();
             if (id == R.id.home) {
                 navController.navigate(R.id.HomeFragment);
-            } else if (id == R.id.favourite) {
-                navController.navigate(R.id.FavouritesFragment);
+            //} else if (id == R.id.favourite) {
+             //   navController.navigate(R.id.FavouritesFragment);
             } else if (id == R.id.profile) {
                 navController.navigate(R.id.ProfileFragment);
             } else if (id == R.id.contacts) {

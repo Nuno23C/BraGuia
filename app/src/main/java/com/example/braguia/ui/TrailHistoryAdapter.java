@@ -1,5 +1,8 @@
 package com.example.braguia.ui;
 
+import android.app.Activity;
+import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.braguia.R;
@@ -23,6 +28,8 @@ public class TrailHistoryAdapter extends RecyclerView.Adapter<TrailHistoryAdapte
     public TrailHistoryAdapter (List<Trail> tr) {
         trails = tr;
     }
+
+    private TrailClickListener trailClickListener;
 
 
     @NonNull
@@ -43,6 +50,20 @@ public class TrailHistoryAdapter extends RecyclerView.Adapter<TrailHistoryAdapte
             Picasso.get()
                     .load(trail.getTrail_img().replace("http:", "https:"))
                     .into(holder.mTrailImage);
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Context context = holder.itemView.getContext();
+
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("selectedTrail", trail);
+
+                    NavController navController = Navigation.findNavController((Activity) context, R.id.nav_host_fragment);
+                    navController.navigate(R.id.action_TrailHistoryFragment_to_TrailFragment, bundle);
+                }
+            });
         }
     }
 
@@ -80,4 +101,10 @@ public class TrailHistoryAdapter extends RecyclerView.Adapter<TrailHistoryAdapte
             return super.toString() + mTrailName;
         }
     }
+
+    public interface TrailClickListener {
+        void onItemClick(int position);
+    }
+
+
 }

@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!--
     <item android:title="FAVORITOS"
           android:icon="@drawable/favorite"
           android:id="@+id/favourite"/>
+    -->
 
     <item android:title="INÍCIO"
         android:icon="@drawable/home"

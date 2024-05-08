@@ -45,6 +45,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -117,20 +118,30 @@ public class TrailFragment extends Fragment implements OnMapReadyCallback {
         backButton.setOnClickListener(v -> {
             NavController navController = Navigation.findNavController(v);
             navController.navigate(R.id.action_TrailFragment_to_HomeFragment);
+
+            });
+
+
+        ImageView favButton = view.findViewById(R.id.favButton);
+        favButton.setOnClickListener(v -> {
+
+            int[] normalState = {android.R.attr.state_enabled};
+            int[] pressedState = {android.R.attr.state_pressed};
+
+            Drawable currentDrawable = favButton.getDrawable();
+            currentDrawable.setState(normalState);
+            Drawable favoriteTrueDrawable = ContextCompat.getDrawable(getActivity(), R.drawable.favorite_true);
+
+
+            if (Arrays.equals(currentDrawable.getState(), normalState)) {
+                favButton.setImageResource(R.drawable.favorite_true);
+                currentDrawable.setState(pressedState);
+            } else {
+                favButton.setImageResource(R.drawable.favorite_false);
+                currentDrawable.setState(normalState);
+            }
+
         });
-
-
-//        ImageView favButton = view.findViewById(R.id.favButton);
-//        favButton.setOnClickListener(v -> {
-//            Drawable currentDrawable = favButton.getDrawable();
-//            Drawable favoriteTrueDrawable = ContextCompat.getDrawable(getActivity(), R.drawable.favorite_true);
-//
-//            if (currentDrawable.equals(favoriteTrueDrawable)) {
-//                favButton.setImageResource(R.drawable.favorite_false);
-//            } else {
-//                favButton.setImageResource(R.drawable.favorite_true);
-//            }
-//        });
 
         RecyclerView recyclerView = view.findViewById(R.id.trail_pin_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
