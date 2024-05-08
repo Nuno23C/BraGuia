@@ -121,7 +121,7 @@ public class TrailFragment extends Fragment implements OnMapReadyCallback {
 
             });
 
-
+/*
         ImageView favButton = view.findViewById(R.id.favButton);
         favButton.setOnClickListener(v -> {
 
@@ -140,8 +140,8 @@ public class TrailFragment extends Fragment implements OnMapReadyCallback {
                 favButton.setImageResource(R.drawable.favorite_false);
                 currentDrawable.setState(normalState);
             }
-
         });
+*/
 
         RecyclerView recyclerView = view.findViewById(R.id.trail_pin_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
