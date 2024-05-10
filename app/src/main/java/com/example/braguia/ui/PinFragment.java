@@ -128,6 +128,7 @@ public class PinFragment extends Fragment {
         play_video.setVisibility(View.GONE);
         download_audio.setVisibility(View.GONE);
         audio.setText(R.string.audio_na);
+        play_audio.setEnabled(false);
 
         userViewModel.getUser().observe(getViewLifecycleOwner(), user -> {
 
@@ -239,6 +240,7 @@ public class PinFragment extends Fragment {
 
                                 audio.setText(R.string.play);
                                 download_audio.setVisibility(View.VISIBLE);
+                                play_audio.setEnabled(true);
 
                                 mediaPlayer = new MediaPlayer();
 
